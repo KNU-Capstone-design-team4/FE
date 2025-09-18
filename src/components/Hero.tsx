@@ -9,7 +9,8 @@ const Hero: React.FC = () => {
       </div>
       <div className="hero-text-box">
         <h1>LAWBOT</h1>
-        <a href="#" className="read-more">Read More</a>
+        <br></br>
+        <a href="#" className="read-more">More Information</a>
       </div>
     </section>
   );
