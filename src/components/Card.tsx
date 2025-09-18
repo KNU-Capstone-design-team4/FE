@@ -1,6 +1,5 @@
 import React from 'react';
 
-// 이 컴포넌트가 받을 props의 타입을 정의합니다.
 interface CardProps {
   title: string;
   description: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import lawbotLogo from '../assets/lawbot_logo.svg'; // 이미지 경로를 확인해주세요.
+import lawbotLogo from '../assets/lawbot_logo.svg';
 
 const Header: React.FC = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import lawbotLogo from '../assets/law_logo.svg'; // 경로가 다르면 수정해주세요.
+import lawbotLogo from '../assets/law_logo.svg';
 
 const Hero: React.FC = () => {
   return (
@@ -10,7 +10,9 @@ const Hero: React.FC = () => {
       <div className="hero-text-box">
         <h1>LAWBOT</h1>
         <br></br>
-        <a href="#" className="read-more">More Information</a>
+        <a href="#" className="read-more">
+          More Information
+        </a>
       </div>
     </section>
   );
