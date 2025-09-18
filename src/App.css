@@ -1,42 +1,148 @@
+/* 기본 스타일 초기화 및 폰트 설정 */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 앱 전체 컨테이너 (1280x720) - React는 #root div를 사용합니다. */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 1280px;
+  height: 720px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
+  box-sizing: border-box; /* 패딩이 크기에 포함되도록 설정 */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* 헤더 */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.header-logo {
+  height: 40px; /* 로고 이미지의 높이를 적절하게 조절합니다. */
+  width: auto; /* 너비는 높이에 맞춰 자동으로 조절됩니다. */
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+header nav button {
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+header nav .btn-signup {
+  background-color: #333;
+  color: white;
+  border: none;
+  margin-right: 10px;
+}
+
+header nav .btn-login {
+  background-color: white;
+  color: #333;
+  border: 1px solid #333;
+}
+
+main {
+  flex-grow: 1;
+}
+
+/* Hero 섹션 (상단 검은색 배너) */
+.hero {
+  background-color: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.hero-logo-box {
+  width: 40%;
+  height: 100%;
+  background-color: #444; /* 이미지 배경색으로 활용하거나 제거할 수 있습니다. */
+  display: flex;
+  justify-content: center; /* 이미지를 중앙에 배치 */
+  align-items: center; /* 이미지를 중앙에 배치 */
+  position: relative; /* 이미지를 hero-logo-box 중앙에 배치하기 위함 */
+}
+
+.hero-text-box {
+  padding-left: 50px;
+}
+
+.hero-text-box .author {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+
+.hero-logo-image {
+  max-width: 80%; /* 부모 요소 너비의 80%를 넘지 않도록 */
+  max-height: 80%; /* 부모 요소 높이의 80%를 넘지 않도록 */
+  object-fit: contain; /* 이미지가 잘리지 않도록 비율 유지 */
+}
+
+.hero-text-box h1 {
+  font-size: 60px;
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.hero-text-box .read-more {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 40px;
 }
 
 .card {
-  padding: 2em;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 30px;
+  width: 48%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.read-the-docs {
-  color: #888;
+.card h2 {
+  color: #b35f5f;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.card a {
+  display: block;
+  text-align: right;
+  color: #777;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 20px;
 }
