@@ -1,69 +1,84 @@
-# React + TypeScript + Vite
+# LawBot FE (법률 계약서 챗봇 서비스)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+💬 대화형 AI 챗봇을 통해 누구나 쉽고 정확하게 법률 계약서를 작성할 수 있도록 돕는 웹 서비스입니다.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ## 🌟 주요 기능
 
-## Expanding the ESLint configuration
+-   **대화형 챗봇:** 시나리오 기반의 대화를 통해 계약서 필수 항목을 누락 없이 작성합니다.
+-   **AI 정보 추출:** 사용자의 답변에서 AI가 핵심 정보를 자동으로 추출하여 계약서에 반영합니다.
+-   **문서 자동 생성:** 대화 완료 시, 수집된 정보를 바탕으로 완성된 계약서(.docx) 파일을 즉시 생성하고 다운로드할 수 있습니다.
+-   **실시간 도움말:** 각 항목 작성 시 사용자가 궁금해할 만한 내용을 팁으로 제공하여 이해를 돕습니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ## 🛠️ 기술 스택
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+-   **Framework:** React
+-   **Language:** TypeScript
+-   **Build Tool:** Vite
+-   **Styling:** Styled-components / Tailwind CSS (선택)
+-   **State Management:** Zustand / Recoil (선택)
+-   **HTTP Client:** Axios
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+### ## 🚀 프로젝트 실행 방법
+
+```bash
+# 1. GitHub 저장소를 클론합니다.
+$ git clone [저장소 주소]
+
+# 2. 프로젝트 폴더로 이동합니다.
+$ cd FE
+
+# 3. 의존성 패키지를 설치합니다.
+$ npm install
+
+# 4. 개발 서버를 실행합니다.
+$ npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### ## 📜 팀 개발 규칙
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+원활한 협업을 위해 아래 규칙을 준수합니다.
+
+#### 1. Git 커밋 메시지 컨벤션
+
+-   `Feat`: 새로운 기능 추가
+-   `Fix`: 버그 수정
+-   `Style`: 코드 형식, 세미콜론 누락, 포매팅 등 (기능 변경 없음)
+-   `Refactor`: 코드 리팩토링 (기능 변경 없음)
+-   `Docs`: 문서 수정 (README 등)
+-   `Chore`: 빌드 업무, 패키지 매니저 설정 등
+
+> 예시: `Feat: 로그인 페이지 UI 구현`
+
+#### 2. Git 브랜치 전략
+
+-   `main`: 최종 배포 버전
+-   `develop`: 개발 완료 후 `main`으로 병합될 브랜치
+-   `feature/기능-이름`: 기능 개발을 위한 브랜치
+    -   **작업 순서:** `develop` 브랜치에서 새로운 `feature` 브랜치를 생성하여 기능 개발 → 개발 완료 후 `develop`으로 Pull Request(PR) 생성 → 코드 리뷰 후 병합
+
+#### 3. 코딩 스타일
+
+-   **Prettier**와 **ESLint**를 사용하여 일관된 코드 스타일을 유지합니다.
+-   VS Code 사용자는 `Prettier - Code formatter`, `ESLint` 확장 프로그램을 설치해주세요.
+
+#### 4. 소통 규칙
+
+-   매일 오전 10시, **데일리 스크럼**을 통해 진행 상황 및 이슈를 공유합니다.
+-   기능 개발 전, 담당자끼리 충분히 소통하여 API 명세 등을 확정합니다.
+
+---
+
+### ## 🧑‍💻 팀원 소개
+
+| 역할 | 이름 |
+| :--: | :--: |
+| 프론트엔드 | 남규리 |
+| 프론트엔드 | 전민영 |
