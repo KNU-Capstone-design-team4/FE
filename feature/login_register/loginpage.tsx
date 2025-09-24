@@ -36,7 +36,7 @@ export default function LoginPage() {
           </div>
 
           <button
-            className=""
+            className="w-full py-3 mb-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"
           >
             로그인
           </button>

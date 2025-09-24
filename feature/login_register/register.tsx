@@ -1,59 +1,115 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import lawbotLogo from '../../src/assets/lawbot_logo.svg';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
+  const validateEmail = (email: string): boolean => {
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return re.test(email);
+  };
+
+  const validatePhoneNumber = (phone: string): boolean => {
+    const re = /^[0-9-]+$/;
+    return re.test(phone);
+  };
+
+  const handleRegister = () => {
+    let isValid = true;
+
+    if (!validateEmail(email)) {
+      setEmailError('유효한 이메일 주소를 입력해주세요.');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      setPhoneError('전화번호는 숫자와 하이픈(-)만 포함해야 합니다.');
+      isValid = false;
+    } else {
+      setPhoneError('');
+    }
+
+    if (isValid) {
+      console.log({ email, password, name, phoneNumber});
+      navigate("/login");
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
-      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-900">LawBot</h1>
-        <h2 className="text-2xl font-semibold text-center mb-6">회원가입</h2>
+    <div className="relative w-full h-screen bg-gray-100 flex flex-col items-center justify-start py-8 overflow-hidden">
+      {/* 왼쪽 상단 로고 */}
+      <div className="absolute top-8 left-8">
+        <img
+          src={lawbotLogo}
+          alt="LawBot Logo"
+          className="h-8 w-auto"
+        />
+      </div>
 
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">이메일</label>
+      {/* 중앙 컨테이너 */}
+      <div className="flex flex-col items-center justify-center h-full w-full px-4">
+        <h2 className="text-3xl font-bold mb-8 text-blue-900">회원가입</h2>
+
+        <div className="bg-gray-100 p-8 rounded-xl shadow-2xl w-full max-w-md flex flex-col items-center space-y-6">
+          {/* 이메일 입력 필드 */}
           <input
             type="email"
-            id="email"
-            placeholder="lawbot@email.com"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="registerEmail"
+            placeholder="이메일"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-80 px-4 py-24 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
           />
-        </div>
+          {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
 
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-2">비밀번호</label>
+          {/* 비밀번호 입력 필드 */}
           <input
             type="password"
-            id="password"
-            placeholder="비밀번호를 입력하세요."
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="registerPassword"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-80 px-4 py-24 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
           />
-        </div>
-        
-        <div className="mb-6">
-          <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-semibold mb-2">비밀번호 확인</label>
+
+          {/* 이름 입력 필드 */}
           <input
-            type="password"
-            id="confirmPassword"
-            placeholder="비밀번호를 다시 입력하세요."
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="text"
+            id="registerName"
+            placeholder="이름"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-80 px-4 py-24 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
           />
-        </div>
 
-        <button
-          className="w-full bg-blue-900 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-800 transition duration-300 mb-4"
-        >
-          회원가입
-        </button>
+          {/* 전화번호 입력 필드 */}
+          <input
+            type="tel"
+            id="registerPhoneNumber"
+            placeholder="전화번호"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="w-80 px-4 py-24 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+          />
+          {phoneError && <p className="text-red-500 text-xs mt-1">{phoneError}</p>}
 
-        <p className="text-center text-sm text-gray-600">
-          이미 계정이 있으신가요?
+          {/* 가입하기 버튼 */}
           <button
-            onClick={() => navigate("/login")}
-            className="text-blue-900 font-semibold ml-1 hover:underline"
+            onClick={handleRegister}
+            className="w-80 py-24 mt-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"
           >
-            로그인
+            가입하기
           </button>
-        </p>
+        </div>
       </div>
     </div>
   );
