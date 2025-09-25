@@ -1,0 +1,120 @@
+/* 전체 에디터 컨테이너 */
+.editor-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+  background-color: #f0f2f5;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 왼쪽 문서 뷰어 */
+.document-viewer {
+  flex: 3; /* 비율 3 */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.document-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e0e0e0;
+}
+
+/* 오른쪽 채팅 인터페이스 */
+.chat-interface {
+  flex: 2; /* 비율 2 */
+  display: flex;
+  flex-direction: column;
+  background-color: #888888;
+  color: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 15px 20px;
+  background-color: #888888;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+.message p {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+.message.ai {
+  background-color: #000000;
+  color: #f8f9fa;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #495057;
+}
+
+.chat-input-area input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #6c757d;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #000000;
+  outline: none;
+  margin-right: 10px;
+}
+
+.chat-input-area input::placeholder {
+  color: #adb5bd;
+}
+
+.chat-input-area button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-input-area button:hover {
+  background-color: #888888;
+}
