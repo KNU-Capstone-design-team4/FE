@@ -7,7 +7,7 @@ import Features from './components/Features';
 
 import LoginIntroPage from '../feature/login_register/login_intro';
 import LoginPage from '../feature/login_register/loginpage';
-import RegisterPage from '../feature/login_register/register';
+import RegisterPage from '../feature/login_register/RegisterPage';
 
 const App: React.FC = () => {
   return (

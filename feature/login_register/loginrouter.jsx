@@ -1,4 +1,4 @@
-import{ BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import{Routes, Route} from "react-router-dom";
 import LoginIntroPage from "./components/Login진입화면";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
