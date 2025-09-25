@@ -52,16 +52,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess }) => {
         onChange={(e) => setEmail(e.target.value)}
         className="w-80 px-4 py-2 border rounded-md"
       />
-      {emailError && <p className="text-red-500 text-xs">{emailError}</p>}
+      {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
 
       <input
         type="password"
         placeholder="비밀번호"
-        value={password}
+        value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="w-80 px-4 py-2 border rounded-md"
       />
-      {passwordError && <p className="text-red-500 text-xs">{passwordError}</p>}
+      {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
 
       <input
         type="text"
@@ -78,7 +78,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegisterSuccess }) => {
         onChange={(e) => setPhoneNumber(e.target.value)}
         className="w-80 px-4 py-2 border rounded-md"
       />
-      {phoneError && <p className="text-red-500 text-xs">{phoneError}</p>}
+      {phoneError && <p className="text-red-500 text-xs mt-1">{phoneError}</p>}
 
       <button
         onClick={handleRegister}
