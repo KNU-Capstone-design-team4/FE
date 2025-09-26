@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import lawbotLogo from '../../src/assets/lawbot_logo.svg';
+import lawbotLogo from '../../assets/lawbot_logo.svg';
 
 export default function LoginIntroPage() {
   const navigate = useNavigate();

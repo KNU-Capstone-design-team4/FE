@@ -10,9 +10,9 @@ import Hero from './components/Hero';
 import Features from './components/Features';
 import DocumentEditorPage from './pages/chatbot/DocumentEditorPage';
 
-import LoginIntroPage from '../feature/login_register/login_intro';
-import LoginPage from '../feature/login_register/loginpage';
-import RegisterPage from '../feature/login_register/RegisterPage';
+import LoginIntroPage from './pages/login/login_intro';
+import LoginPage from './pages/login/loginpage';
+import RegisterPage from './pages/register/RegisterPage';
 
 const App: React.FC = () => {
   // 'main'과 'editor' 두 가지 상태를 관리하는 state 생성
