@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import lawbotLogo from '../../assets/lawbot_logo.svg';
 import { validateEmail, validatePassword } from "../register/validation";
 
-export default function LoginPage() {
+interface LoginPageProps {
+  onLogin: () => void; //App.tsx에서 전달
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -27,18 +31,14 @@ export default function LoginPage() {
     }
   }, [password]);
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      console.error("이메일과 비밀번호를 모두 입력해주세요.");
-      return;
-    }
-
-    if (emailError || passwordError) {
+  const handleLoginClick = () => {
+    if (!email || !password || emailError || passwordError) {
       console.error("입력 정보를 확인해주세요.");
       return;
     }
 
     console.log("로그인 성공!", { email, password });
+    onLogin(); //로그인 상태 true로 업데이트
     navigate("/");
   };
 
@@ -89,7 +89,7 @@ export default function LoginPage() {
 
         <button
           className="w-96 py-3 mb-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors"
-          onClick={handleLogin}
+          onClick={handleLoginClick}
         >
           로그인
         </button>
@@ -107,3 +107,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;
