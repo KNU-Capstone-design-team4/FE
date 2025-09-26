@@ -5,9 +5,9 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
 
-import LoginIntroPage from '../feature/login_register/login_intro';
-import LoginPage from '../feature/login_register/loginpage';
-import RegisterPage from '../feature/login_register/RegisterPage';
+import LoginIntroPage from './pages/login/login_intro';
+import LoginPage from './pages/login/loginpage';
+import RegisterPage from './pages/register/RegisterPage';
 
 const App: React.FC = () => {
   return (

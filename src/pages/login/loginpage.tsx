@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import lawbotLogo from '../../src/assets/lawbot_logo.svg';
-import { validateEmail, validatePassword } from "./validation";
+import lawbotLogo from '../../assets/lawbot_logo.svg';
+import { validateEmail, validatePassword } from "../register/validation";
 
 export default function LoginPage() {
   const navigate = useNavigate();

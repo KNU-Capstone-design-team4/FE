@@ -1,5 +1,5 @@
 import React from "react";
-import lawbotLogo from '../../src/assets/lawbot_logo.svg';
+import lawbotLogo from '../../assets/lawbot_logo.svg';
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
 
