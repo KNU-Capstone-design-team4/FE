@@ -3,12 +3,16 @@ import lawbotLogo from '../../assets/lawbot_logo.svg';
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
 
+interface RegisterPageProps {
+  onRegisterSuccess: () => void;
+}
 
-const RegisterPage: React.FC = () => {
+const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess }) => {
   const navigate = useNavigate();
 
   const handleRegisterSuccess = () => {
-    navigate("/"); // 회원가입 후 메인페이지로 이동
+    onRegisterSuccess();
+    navigate("/"); // 회원가입 후 메인페이지로 이동
   };
 
   return (
