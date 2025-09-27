@@ -10,7 +10,7 @@ interface DocumentCardProps {
 }
 
 const DocumentCard: React.FC<DocumentCardProps> = ({ title, date, imgSrc, onClick, isAddButton, small }) => {
-  // 아주 작은 카드용 크기
+  //카드크기
   const cardSize = small ? "w-16 h-20" : "w-48 h-60";
   const textSize = small ? "text-[8px]" : "text-sm";
   const dateSize = small ? "text-[6px]" : "text-xs";
