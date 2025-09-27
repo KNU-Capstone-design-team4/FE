@@ -8,6 +8,7 @@ import Features from './components/Features';
 import LoginIntroPage from './pages/login/login_intro';
 import LoginPage from './pages/login/loginpage';
 import RegisterPage from './pages/register/RegisterPage';
+import MyPage from './pages/mypage/mypage';
 
 const App: React.FC = () => {
   //로그인 상태 관리
@@ -36,6 +37,14 @@ const App: React.FC = () => {
         <Route path="/login_intro" element={<LoginIntroPage />} />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
         <Route path="/register" element={<RegisterPage onRegisterSuccess={handleLogin} />} />
+         {/* ✅ 마이페이지 */}
+        <Route path="/mypage" element={isLoggedIn ? (<MyPage />) : (
+              <div className="p-8 text-center text-red-500">
+                로그인이 필요합니다.
+              </div>
+            )
+          }
+        />
       </Routes>
     </Router>
   );
