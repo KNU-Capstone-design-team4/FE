@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       {/* 왼쪽 상단 로고 */}
       <div
-        className="flex items-center cursor-pointer"
+        className="cursor-pointer"
         onClick={() => navigate('/')}
       >
         <img src={lawbotLogo} alt="LawBot Logo" className="h-10" />
