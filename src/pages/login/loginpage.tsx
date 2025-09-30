@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import lawbotLogo from '../../assets/lawbot_logo.svg';
 import { validateEmail, validatePassword } from "../register/validation";
 
 interface LoginPageProps {
@@ -46,7 +45,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     <div className="relative w-full h-screen bg-gray-100 overflow-hidden flex items-center justify-center">
       <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm flex flex-col items-center">
         <img
-          src={lawbotLogo}
+          src="/lawbot_logo.svg"
           alt="LawBot Logo"
           style={{ height: '30px', width: 'auto' }}
           className="mb-6"

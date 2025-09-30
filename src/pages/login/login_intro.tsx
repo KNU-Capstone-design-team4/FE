@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import lawbotLogo from '../../assets/lawbot_logo.svg';
+//import lawbotLogo from '../../assets/lawbot_logo.svg';
 
 export default function LoginIntroPage() {
   const navigate = useNavigate();
@@ -7,9 +7,9 @@ export default function LoginIntroPage() {
   return (
     <div className="relative w-full h-screen bg-gray-50 overflow-hidden">
       {/* 1. 로고: 왼쪽 상단에 작게 배치 */}
-      <div className="absolute top-6 left-6">
+      <div className="absolute top-6 left-6 cursor-pointer" onClick ={() => navigate('/')}>
         <img
-          src={lawbotLogo}
+          src="/lawbot_logo.svg"
           alt="LawBot Logo"
           style={{ height: '32px', width: 'auto' }}
         />

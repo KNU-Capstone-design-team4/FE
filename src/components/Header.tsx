@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import lawbotLogo from '../assets/lawbot_logo.svg';
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -14,10 +13,12 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       {/* 왼쪽 상단 로고 */}
       <div
-        className="cursor-pointer"
+        className="flex items-center cursor-pointer" 
         onClick={() => navigate('/')}
       >
-        <img src={lawbotLogo} alt="LawBot Logo" className="h-10" />
+        {/* public 폴더에 있으므로 절대 경로 /lawbot_logo.svg 사용 */}
+        <img src="/lawbot_logo.svg" alt="LawBot Logo" 
+        style={{ height: '40px', width: 'auto', display: 'block' }} />
       </div>
 
       {/* 오른쪽 메뉴 */}

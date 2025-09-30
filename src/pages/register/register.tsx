@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import lawbotLogo from '../../src/assets/lawbot_logo.svg';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -45,15 +44,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="relative w-full h-screen bg-gray-100 flex flex-col items-center justify-start py-8 overflow-hidden">
-      {/* 왼쪽 상단 로고 */}
-      <div className="absolute top-8 left-8">
-        <img
-          src={lawbotLogo}
-          alt="LawBot Logo"
-          className="h-8 w-auto"
-        />
-      </div>
+    <div className="relative w-full h-screen bg-gray-50 overflow-hidden">
+      
 
       {/* 중앙 컨테이너 */}
       <div className="flex flex-col items-center justify-center h-full w-full px-4">

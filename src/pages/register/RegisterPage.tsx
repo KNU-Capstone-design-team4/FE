@@ -1,5 +1,4 @@
 import React from "react";
-import lawbotLogo from '../../assets/lawbot_logo.svg';
 import RegisterForm from "./RegisterForm";
 import { useNavigate } from "react-router-dom";
 
@@ -16,9 +15,11 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess }) => {
   };
 
   return (
-    <div className="relative w-full h-screen bg-gray-100 flex flex-col items-center justify-start py-8 overflow-hidden">
-      <div className="absolute top-8 left-8">
-        <img src={lawbotLogo} alt="LawBot Logo" className="h-8 w-auto" />
+    <div className="relative w-full h-screen bg-gray-50 overflow-hidden">
+      <div 
+        className="absolute top-6 left-6 z-10 cursor-pointer" onClick={() => navigate("/")}> 
+        <img src="/lawbot_logo.svg" alt="LawBot Logo" 
+          style={{ height: '40px', width: 'auto', display: 'block' }}/>
       </div>
 
       <div className="flex flex-col items-center justify-center h-full w-full px-4">
