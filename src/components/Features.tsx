@@ -3,7 +3,7 @@ import Card from './Card';
 
 // onNavigate 함수를 props로 받기 위한 interface 정의
 interface FeaturesProps {
-  onNavigate?: () => void;
+  onNavigate: () => void;
 }
 
 const Features: React.FC<FeaturesProps> = ({ onNavigate }) => {
