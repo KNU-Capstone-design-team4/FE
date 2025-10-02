@@ -23,11 +23,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 10px 40px;
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
   /* Header의 높이를 81px로 고정 (패딩 20*2 + 로고 40 + 테두리 1) */
-  height: 81px;
+  height: 61px;
   box-sizing: border-box; /* 패딩, 테두리를 높이에 포함 */
 }
 .header-logo {
@@ -60,7 +60,7 @@ header nav .btn-login {
   display: flex;
   flex-direction: column;
   /* Header 높이(81px)를 제외한 나머지 뷰포트 높이 전체를 차지하도록 계산 */
-  height: calc(100vh - 81px); 
+  height: calc(100vh - 61px); 
 }
 
 main {
