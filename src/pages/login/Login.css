@@ -1,0 +1,117 @@
+/* 전체 페이지 컨테이너 */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f2f5;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 폼, 인트로 박스 등의 중앙 컨텐츠 박스 */
+.auth-box {
+  width: 450px;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* 로고 스타일 */
+.auth-logo {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1c3d72; /* 이미지의 남색 계열 로고 색상 */
+  margin-bottom: 30px;
+  text-decoration: none;
+  display: block;
+}
+
+/* RegisterPage의 로고 (왼쪽 정렬) */
+.auth-box.register-page .auth-logo {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+/* 회원가입 타이틀 */
+.auth-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: left;
+  color: #333;
+}
+
+/* 입력 필드 (input) */
+.auth-input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.auth-input::placeholder {
+  color: #999;
+}
+
+/* 공통 버튼 스타일 */
+.auth-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* 하단 링크 (예: 계정이 없으신가요? 회원가입) */
+.auth-link {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #555;
+}
+
+.auth-link a {
+  color: #1c3d72;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* 로그인 진입 화면 (LoginIntro) 전용 스타일 */
+.login-intro-box {
+  background-color: #ffffff;
+  padding: 60px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.login-intro-box h2 {
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.login-intro-box p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* 파일의 맨 아래에 아래 코드 블록을 추가해 주세요. */
+
+/* 유효성 검사 에러 메시지 */
+.auth-error-message {
+  color: #d93025; /* 구글의 에러 메시지 색상 */
+  font-size: 13px;
+  text-align: left;
+  margin-top: -15px; /* 입력 필드와의 간격 조절 */
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
