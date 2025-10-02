@@ -3,7 +3,11 @@ import Card from './Card';
 
 // isLoggedIn prop을 받기 위한 interface 정의
 interface FeaturesProps {
+<<<<<<< HEAD
   isLoggedIn: boolean;
+=======
+  onNavigate: () => void;
+>>>>>>> origin/develop
 }
 
 const Features: React.FC<FeaturesProps> = ({ isLoggedIn }) => {
