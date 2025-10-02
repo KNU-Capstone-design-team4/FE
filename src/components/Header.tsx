@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import { useNavigate, useLocation } from 'react-router-dom'; // 👈 1. useLocation을 추가로 불러옵니다.
 
 interface HeaderProps {
@@ -27,13 +26,8 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
       navigate('/'); // 메인 페이지로 이동
     }
   };
-=======
-import lawbotLogo from '../assets/lawbot_logo.svg';
->>>>>>> origin/develop
 
-const Header: React.FC = () => {
   return (
-<<<<<<< HEAD
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       {/* 왼쪽 상단 로고 */}
       <div
@@ -78,13 +72,6 @@ const Header: React.FC = () => {
             </button>
           </>
         )}
-=======
-    <header>
-      <img src={lawbotLogo} alt="LawBot Logo" className="header-logo" />
-      <nav>
-        <button className="btn-signup">회원가입</button>
-        <button className="btn-login">로그인</button>
->>>>>>> origin/develop
       </nav>
     </header>
   );

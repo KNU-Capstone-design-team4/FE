@@ -24,11 +24,6 @@ a:hover {
 
 body {
   margin: 0;
-<<<<<<< HEAD
-=======
-  display: flex;
-  place-items: center;
->>>>>>> origin/develop
   min-width: 320px;
   min-height: 100vh;
   /* 여기에 앱 전체의 기본 배경색을 지정합니다. */
@@ -71,8 +66,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/develop
