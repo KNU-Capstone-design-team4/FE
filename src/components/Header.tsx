@@ -21,9 +21,10 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
     } 
     // 그 외 다른 모든 페이지의 경우
     else {
-      window.confirm('정말 로그아웃 하시겠습니까?')
+      if (window.confirm('정말 로그아웃 하시겠습니까?')) {
       onLogout();
       navigate('/'); // 메인 페이지로 이동
+      }
     }
   };
 
