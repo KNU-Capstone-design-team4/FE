@@ -41,13 +41,13 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
         ) : (
           <>
             <button
-              onClick={() => navigate('/register')}
+              onClick={() => navigate('/login_intro')}
               className="btn-signup px-4 py-2 bg-blue-500 text-white rounded"
             >
               회원가입
             </button>
             <button
-              onClick={() => navigate('/login_intro')}
+              onClick={() => navigate('/login')}
               className="btn-login px-4 py-2 bg-gray-300 rounded"
             >
               로그인

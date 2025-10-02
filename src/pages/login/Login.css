@@ -29,7 +29,7 @@
 
 /* RegisterPage의 로고 (왼쪽 정렬) */
 .auth-box.register-page .auth-logo {
-  text-align: left;
+  text-align: center;
   margin-bottom: 40px;
 }
 
@@ -38,7 +38,7 @@
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 30px;
-  text-align: left;
+  text-align: center;
   color: #333;
 }
 
@@ -85,12 +85,6 @@
 }
 
 /* 로그인 진입 화면 (LoginIntro) 전용 스타일 */
-.login-intro-box {
-  background-color: #ffffff;
-  padding: 60px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
 
 .login-intro-box h2 {
   font-size: 22px;
