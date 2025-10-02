@@ -53,8 +53,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h1 className="auth-logo">LawBot</h1>
-        <form onSubmit={handleLoginSubmit}>
+          <Link to="/" className="auth-logo">
+            <img src="/lawbot_logo.svg" alt="LawBot Logo" className="auth-logo-img" />
+          </Link>
+          <form onSubmit={handleLoginSubmit}>
           {/* 3. 입력 필드에 state와 핸들러 연결 */}
           <input 
             className="auth-input" 

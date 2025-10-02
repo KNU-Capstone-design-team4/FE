@@ -6,7 +6,7 @@ const LoginIntroPage: React.FC = () => {
   return (
     <div className="auth-container">
       <div className="auth-box login-intro-box">
-        <h1 className="auth-logo" style={{ textAlign: 'center', marginBottom: '60px' }}>LawBot</h1>
+        <img src="/lawbot_logo.svg" alt="LawBot Logo" className="auth-logo-img" style={{ textAlign: 'left', marginBottom: '60px', marginLeft: 0 }} />
         <h2>법률 문서를 쉽게 작성하세요!</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

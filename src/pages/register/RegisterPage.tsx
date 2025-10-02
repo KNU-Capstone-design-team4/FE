@@ -81,9 +81,10 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess }) => {
   return (
     <div className="auth-container">
       <div className="auth-box register-page">
-        <Link to="/" className="auth-logo">LawBot</Link>
-        <h2 className="auth-title">회원가입</h2>
-        <form onSubmit={handleRegisterSubmit}>
+          <Link to="/" className="auth-logo">
+            <img src="/lawbot_logo.svg" alt="LawBot Logo" className="auth-logo-img" />
+          </Link>
+          <form onSubmit={handleRegisterSubmit}>
           {/* 이메일 입력 */}
           <input className="auth-input" type="email" placeholder="이메일" value={email} onChange={handleEmailChange} required />
           {emailError && <p className="auth-error-message">{emailError}</p>}
