@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-// Layout 컴포넌트 불러오기
 import Layout from './components/Layout';
-
-// 페이지 컴포넌트들
 import Hero from './components/Hero';
 import Features from './components/Features';
 import DocumentEditorPage from './pages/chatbot/DocumentEditorPage';
@@ -13,11 +10,12 @@ import LoginIntroPage from './pages/login/login_intro';
 import LoginPage from './pages/login/loginpage';
 import RegisterPage from './pages/register/RegisterPage';
 
-// 메인 페이지 내용을 별도 컴포넌트로 분리
-const MainPage: React.FC = () => (
+// MainPage 컴포넌트는 isLoggedIn prop을 받도록 수정합니다.
+const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
   <main>
     <Hero />
-    <Features />
+    {/* Features 컴포넌트에 isLoggedIn 상태를 넘겨줍니다. */}
+    <Features isLoggedIn={isLoggedIn} />
   </main>
 );
 
@@ -28,13 +26,12 @@ const App: React.FC = () => {
 
   return (
     <Routes>
-      {/* Layout을 사용하는 페이지들 */}
       <Route element={<Layout isLoggedIn={isLoggedIn} onLogout={handleLogout} />}>
-        <Route path="/" element={<MainPage />} />
+        {/* MainPage에 isLoggedIn 상태를 prop으로 전달합니다. */}
+        <Route path="/" element={<MainPage isLoggedIn={isLoggedIn} />} />
         <Route path="/chatbot" element={<DocumentEditorPage />} />
       </Route>
 
-      {/* Layout(Header)을 사용하지 않는 페이지들 */}
       <Route path="/login_intro" element={<LoginIntroPage />} />
       <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
       <Route path="/register" element={<RegisterPage onRegisterSuccess={handleLogin} />} />
