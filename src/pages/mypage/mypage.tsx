@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import documentImage from "../../assets/document_image.png";
+import ResizedImage from "./resize";
 
 interface Document {
   id: number;
@@ -25,32 +25,29 @@ const MyPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-start py-10">
       {/* 헤더 */}
-      <div className="flex flex-col items-center justify-center mb-10">
-        <h1 className="text-3xl font-bold mb-2 text-center">마이페이지</h1>
-        <p className="text-gray-600 text-center">당신의 문서를 관리하고 열람하세요!</p>
+      <div className="flex flex-col items-start justify-center mb-10 w-full max-w-[900px] px-4">
+        <h1 className="text-3xl font-bold mb-2">마이페이지</h1>
+        <p className="text-gray-600">당신의 문서를 관리하고 열람하세요!</p>
       </div>
       {/* 카드 리스트 */}
-      <div className="grid grid-cols-5 gap-4 max-w-6xl w-full">
+      <div className="flex gap-4 w-full overflow-x-auto px-4">
         {/* 새로운 문서 추가 카드 */}
         <div
           onClick={handleCreateNew}
-          className="flex flex-col items-center justify-center w-40 h-60 bg-black text-white text-4x1 font-bold rounded-lg cursor-pointer hover:bg-gray-800"
+          className="flex flex-col items-center justify-center w-40 h-40 bg-gray-800 text-white rounded-lg cursor-pointer hover:bg-gray-700 shadow flex-shrink-0"
         >
-          +
+          <span className="text-3xl font-bold mb-2">+</span>
+          <span className="text-sm text-center">새 문서 작성</span>
         </div>
 
         {/* 기존 문서들 */}
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="bg-white rounded-lg shadow hover:shadow-lg cursor-pointer w-40"
+            className="bg-white rounded-lg shadow w-40 flex-shrink-0 flex flex-col items-center"
           >
-            <img
-              src={documentImage}
-              alt={doc.title}
-              className="w-full h-36 object-cover rounded-t-lg"
-            />
-            <div className="p-3">
+            <ResizedImage width={160} height={160} alt={doc.title} />
+            <div className="p-2 w-full">
               <h2 className="font-semibold text-gray-800 text-center truncate">{doc.title}</h2>
               <p className="text-xs text-gray-500 mt-1 text-center">최근 수정 {doc.updatedAt}</p>
             </div>
