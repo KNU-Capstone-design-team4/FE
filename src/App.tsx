@@ -34,6 +34,7 @@ const App: React.FC = () => {
         <Route path="/chatbot" element={<DocumentEditorPage />} />
         <Route path="/mypage" element = {<MyPage />} />
         <Route path="/DocumentEditorPage" element={<Chatbot />} />
+        <Route path="/ChatInterface" element={<DocumentEditorPage />} />
       </Route>
 
       <Route path="/login_intro" element={<LoginIntroPage />} />
