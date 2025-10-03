@@ -9,6 +9,7 @@ import DocumentEditorPage from './pages/chatbot/DocumentEditorPage';
 import LoginIntroPage from './pages/login/login_intro';
 import LoginPage from './pages/login/loginpage';
 import RegisterPage from './pages/register/RegisterPage';
+import LandingPage from './pages/landing/landing';
 import MyPage from "./pages/mypage/mypage";
 import Chatbot from "./pages/chatbot/ChatInterface";
 
@@ -29,14 +30,14 @@ const App: React.FC = () => {
   return (
     <Routes>
       <Route element={<Layout isLoggedIn={isLoggedIn} onLogout={handleLogout} />}>
-        {/* MainPage에 isLoggedIn 상태를 prop으로 전달합니다. */}
-        <Route path="/" element={<MainPage isLoggedIn={isLoggedIn} />} />
+        {/* MainPage에 isLoggedIn 상태를 prop으로 전달합니다. */} 
+        <Route path="/main" element={<MainPage isLoggedIn={isLoggedIn} />} />
         <Route path="/chatbot" element={<DocumentEditorPage />} />
         <Route path="/mypage" element = {<MyPage />} />
         <Route path="/DocumentEditorPage" element={<Chatbot />} />
         <Route path="/ChatInterface" element={<DocumentEditorPage />} />
       </Route>
-
+      <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} />} />
       <Route path="/login_intro" element={<LoginIntroPage />} />
       <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
       <Route path="/register" element={<RegisterPage onRegisterSuccess={handleLogin} />} />
