@@ -5,17 +5,25 @@ import LandingImage from "./LandingPage.svg";
 const LandingPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
   const navigate = useNavigate();
   const objectRef = useRef<HTMLObjectElement>(null);
-  const [visited, setVisited] = useState(false); // 세션 기준 방문 체크
+  const [visited, setVisited] = useState(
+    sessionStorage.getItem("landingVisited") === "true"
+  );
 
   const handleStartClick = () => {
-    setVisited(true);      // 버튼 클릭 시 랜딩페이지 종료
-    navigate("/main");     // 메인페이지 이동
+    sessionStorage.setItem("landingVisited", "true"); // 방문 기록 저장
+    setVisited(true);
+    navigate("/main");
   };
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/main");   // 로그인 되어 있으면 바로 메인페이지
+      navigate("/main");
     }
+    else{
+      if (sessionStorage.getItem("landingVisited") === "true") {
+        navigate("/main");
+    }
+  }
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
@@ -32,7 +40,6 @@ const LandingPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
       startButton.addEventListener("click", handleStartClick);
       startButton.style.cursor = "pointer";
 
-      // cleanup
       return () => startButton.removeEventListener("click", handleStartClick);
     };
 
@@ -40,7 +47,7 @@ const LandingPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
     return () => obj.removeEventListener("load", handleLoad);
   }, []);
 
-  // 방문 완료했으면 렌더링하지 않음
+  // 방문 기록 있으면 아예 랜딩 안 보여줌
   if (visited) return null;
 
   return (
