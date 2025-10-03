@@ -22,6 +22,7 @@ a:hover {
   color: #535bf2;
 }
 
+
 body {
   margin: 0;
   min-width: 320px;
@@ -29,6 +30,7 @@ body {
   /* 여기에 앱 전체의 기본 배경색을 지정합니다. */
   background-color: #f0f2f5;
 }
+
 
 h1 {
   font-size: 3.2em;
@@ -67,3 +69,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
