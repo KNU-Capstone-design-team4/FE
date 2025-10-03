@@ -25,10 +25,10 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center; 
   min-width: 320px;
   min-height: 100vh;
+  /* 여기에 앱 전체의 기본 배경색을 지정합니다. */
+  background-color: #f0f2f5;
 }
 
 
@@ -59,7 +59,8 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    /* 라이트 모드일 때도 기본 배경색은 body에서 관리하므로 아래는 주석처리하거나 삭제해도 좋습니다. */
+    /* background-color: #ffffff; */
   }
   a:hover {
     color: #747bff;

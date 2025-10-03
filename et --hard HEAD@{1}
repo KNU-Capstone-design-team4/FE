@@ -1,0 +1,58 @@
+[33m73217a8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/login[m[33m)[m HEAD@{0}: commit (merge): Merge branch 'feat/login' of https://github.com/KNU-Capstone-design-team4/FE into feat/login
+[33m1ab31c1[m HEAD@{1}: commit: feat: chatbot 라우팅 수정
+[33mc853f63[m HEAD@{2}: reset: moving to ORIG_HEAD
+[33mbc9a249[m[33m ([m[1;31morigin/feat/login[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{3}: rebase (finish): returning to refs/heads/feat/login
+[33mbc9a249[m[33m ([m[1;31morigin/feat/login[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{4}: rebase (start): checkout develop
+[33mc853f63[m HEAD@{5}: checkout: moving from develop to feat/login
+[33mbc9a249[m[33m ([m[1;31morigin/feat/login[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{6}: checkout: moving from develop to develop
+[33mbc9a249[m[33m ([m[1;31morigin/feat/login[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{7}: reset: moving to origin/develop
+[33mbc9a249[m[33m ([m[1;31morigin/feat/login[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{8}: reset: moving to origin/develop
+[33mc973f84[m HEAD@{9}: reset: moving to origin/develop
+[33ma13037d[m HEAD@{10}: checkout: moving from develop to develop
+[33ma13037d[m HEAD@{11}: checkout: moving from feat/landing to develop
+[33m323a61b[m[33m ([m[1;31morigin/feat/landing[m[33m, [m[1;32mfeat/landing[m[33m)[m HEAD@{12}: reset: moving to origin/feat/landing
+[33m323a61b[m[33m ([m[1;31morigin/feat/landing[m[33m, [m[1;32mfeat/landing[m[33m)[m HEAD@{13}: checkout: moving from feat/mypage to feat/landing
+[33m35a3fd0[m[33m ([m[1;31morigin/feat/mypage[m[33m, [m[1;32mfeat/mypage[m[33m)[m HEAD@{14}: checkout: moving from feat/mypage to feat/mypage
+[33m35a3fd0[m[33m ([m[1;31morigin/feat/mypage[m[33m, [m[1;32mfeat/mypage[m[33m)[m HEAD@{15}: reset: moving to origin/feat/mypage
+[33m35a3fd0[m[33m ([m[1;31morigin/feat/mypage[m[33m, [m[1;32mfeat/mypage[m[33m)[m HEAD@{16}: checkout: moving from feat/login to feat/mypage
+[33mc853f63[m HEAD@{17}: reset: moving to origin/feat/login
+[33md781db9[m HEAD@{18}: reset: moving to HEAD
+[33md781db9[m HEAD@{19}: checkout: moving from develop to feat/login
+[33ma13037d[m HEAD@{20}: pull origin develop: Fast-forward
+[33m628cdfa[m HEAD@{21}: checkout: moving from feat/mypage to develop
+[33m35a3fd0[m[33m ([m[1;31morigin/feat/mypage[m[33m, [m[1;32mfeat/mypage[m[33m)[m HEAD@{22}: checkout: moving from feat/landing to feat/mypage
+[33m323a61b[m[33m ([m[1;31morigin/feat/landing[m[33m, [m[1;32mfeat/landing[m[33m)[m HEAD@{23}: checkout: moving from main to feat/landing
+[33m1bc07ac[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{24}: checkout: moving from feat/login to main
+[33md781db9[m HEAD@{25}: pull origin feat/login: Fast-forward
+[33m1f5e645[m HEAD@{26}: checkout: moving from feature/chat-UI to feat/login
+[33me2f11eb[m[33m ([m[1;32mfeature/chat-UI[m[33m)[m HEAD@{27}: commit (merge): Merge branch 'feat/login' of https://github.com/KNU-Capstone-design-team4/FE into feature/chat-UI
+[33m6697c41[m HEAD@{28}: commit: feat: chatbot UI
+[33m1bc07ac[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{29}: checkout: moving from main to feature/chat-UI
+[33m1bc07ac[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{30}: pull origin main: Fast-forward
+[33m9cf199a[m HEAD@{31}: checkout: moving from feat/login to main
+[33m1f5e645[m HEAD@{32}: pull origin feat/login: Fast-forward
+[33m462235a[m HEAD@{33}: checkout: moving from feat/login to feat/login
+[33m462235a[m HEAD@{34}: checkout: moving from feat/login to feat/login
+[33m462235a[m HEAD@{35}: checkout: moving from feature/MainPage to feat/login
+[33mfd67d2c[m[33m ([m[1;32mfeature/MainPage[m[33m)[m HEAD@{36}: commit: test-end
+[33mb335c84[m HEAD@{37}: commit: test
+[33m9cf199a[m HEAD@{38}: pull origin main: Fast-forward
+[33m628cdfa[m HEAD@{39}: checkout: moving from main to feature/MainPage
+[33m9cf199a[m HEAD@{40}: commit: chore: github pr 템플릿 설정
+[33m15b9e25[m HEAD@{41}: pull: Fast-forward
+[33mdd4c777[m HEAD@{42}: checkout: moving from develop to main
+[33m628cdfa[m HEAD@{43}: checkout: moving from feature/MainPage to develop
+[33m628cdfa[m HEAD@{44}: commit: refactor: prettier 적용 및 불필요한 주석 삭제
+[33m1b71b67[m HEAD@{45}: commit: feat: Hero section 변경
+[33mb294073[m HEAD@{46}: commit: feat: favicon과 title 변경
+[33m790324b[m HEAD@{47}: commit: feat: mainpage UI 구현
+[33mdd4c777[m HEAD@{48}: merge main: Fast-forward
+[33m5f3fadf[m HEAD@{49}: checkout: moving from main to feature/MainPage
+[33mdd4c777[m HEAD@{50}: pull origin main: Fast-forward
+[33mfdf24fd[m HEAD@{51}: checkout: moving from feature/MainPage to main
+[33m5f3fadf[m HEAD@{52}: pull: Fast-forward
+[33mfdf24fd[m HEAD@{53}: checkout: moving from InitialSetting to feature/MainPage
+[33m100916c[m[33m ([m[1;32mInitialSetting[m[33m)[m HEAD@{54}: commit: feat: Initial Setting
+[33mfdf24fd[m HEAD@{55}: checkout: moving from feature/MainPage to InitialSetting
+[33mfdf24fd[m HEAD@{56}: checkout: moving from main to feature/MainPage
+[33mfdf24fd[m HEAD@{57}: commit (initial): Initial commit
