@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../login/Login.css'; // 스타일시트는 그대로 사용합니다.
+import apiClient from '../../api/api';
+import axios from 'axios';
 
 interface RegisterPageProps {
   onRegisterSuccess: () => void;
@@ -66,13 +68,37 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess }) => {
     }
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
+const handleRegisterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 모든 유효성 검사를 통과했는지 확인
     if (email && password && name && phone && !emailError && !passwordError && !nameError && !phoneError) {
-      console.log('회원가입 시도:', { email, password, name, phone });
-      onRegisterSuccess();
-      navigate('/');
+      try {
+        // API 서버에 회원가입 요청
+        const response = await apiClient.post('/api/users/signup', { // 👈 API 엔드포인트에 맞게 수정
+          email: email,
+          password: password,
+          username: name, // 'name' state를 'username' 필드로 사용
+          name: name,
+          phone: phone,
+        });
+
+        console.log('회원가입 성공:', response.data);
+        alert('회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+        
+        // 회원가입 성공 시 바로 로그인 처리 및 메인으로 보낼 경우 아래 주석 해제
+        // onRegisterSuccess();
+        // navigate('/'); 
+        
+        navigate('/login'); // 회원가입 후 로그인 페이지로 이동
+
+      } catch (error) {
+        console.error('회원가입 실패:', error);
+        // axios 에러인 경우, 서버에서 보낸 에러 메시지를 확인할 수 있습니다.
+        if (axios.isAxiosError(error) && error.response) {
+            alert(error.response.data.message || '회원가입 중 오류가 발생했습니다.');
+        } else {
+            alert('회원가입 중 오류가 발생했습니다.');
+        }
+      }
     } else {
       alert('입력 정보를 다시 확인해주세요.');
     }

@@ -44,7 +44,7 @@ const handleLoginSubmit = async (e: React.FormEvent) => {
     if (email && password && !emailError && !passwordError) {
       try {
         // API 서버에 로그인 요청
-        const response = await apiClient.post('/auth/login', { // 👈 API 엔드포인트에 맞게 수정
+        const response = await apiClient.post('/api/users/login', { // 👈 API 엔드포인트에 맞게 수정
           email: email,
           password: password,
         });
