@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import ResizedImage from "./resize";
+import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
 
 interface Document {
   id: number;
@@ -11,12 +13,54 @@ interface Document {
 
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  const documents: Document[] = [
-    { id: 1, title: "크누커피 근로계약서", updatedAt: "2025. 08. 13" },
-    { id: 2, title: "근로계약서 - 호반우", updatedAt: "2024. 07. 22" },
-    { id: 3, title: "감꽃식당 근로계약서", updatedAt: "2024. 03. 01" },
-  ];
+  //마이페이지 예시, 실제 배포할 때는 로그인 페이지에서 처리해야함
+  useEffect(() => {
+    const loginTestAccount = async () => {
+    try {
+      const res = await axios.post(
+          `${API}/api/users/login`,
+          {
+            email: "aa11@example.com",
+            password: "aa1111",
+          }
+      );
+      console.log("로그인 성공:", res.data);
+      setAccessToken(res.data.access_token);
+    } catch (err) {
+      console.error("로그인 실패", err);
+    }
+  };
+  
+  loginTestAccount();
+}, []);
+
+  useEffect(() => {
+    const fetchContracts = async () => {
+      if(!accessToken) return; //토큰 없으면 요청 X
+
+      try {
+        const res = await axios.get(`${API}/api/contracts/`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            withCredentials: true,
+          },
+        });
+         const docs: Document[] = res.data.map((c: any) => ({
+          id: c.id,
+          title: c.contract_type,        // 예: 서버에서 contract_type 가져오기
+          updatedAt: c.updated_at || "", // 서버에서 updated_at 필드 사용
+        }));
+        setDocuments(docs);
+      } catch (err) {
+        console.error("문서 불러오기 실패", err);
+      } 
+    };
+
+    fetchContracts();
+  }, [accessToken]);
 
   const handleCreateNew = () => {
     navigate("/ChatInterface"); // 문서 작성 페이지
