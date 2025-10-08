@@ -16,6 +16,10 @@ const MyPage: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
+  const handleOpenDocument = (docId: string) => {
+    navigate(`/ChatInterface/${docId}`); //App.tsx에 라우팅 구현, 문서 클릭하면 챗봇으로 감
+  }
+
   //마이페이지 예시, 실제 배포할 때는 로그인 페이지에서 처리해야함
   useEffect(() => {
     const loginTestAccount = async () => {
@@ -107,8 +111,10 @@ const MyPage: React.FC = () => {
                 backgroundColor: '#fff',
                 borderRadius: '8px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                textAlign: 'center'
+                textAlign: 'center',
+                cursor: 'pointer',
               }}
+              onClick={() => handleOpenDocument(doc.id.toString())}
             >
               <ResizedImage width={160} height={160} alt={doc.title} />
               <div style={{ padding: '8px' }}>
@@ -117,10 +123,12 @@ const MyPage: React.FC = () => {
               </div>
             </div>
           ))}
+          
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default MyPage;
