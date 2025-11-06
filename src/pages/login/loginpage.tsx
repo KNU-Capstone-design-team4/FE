@@ -52,7 +52,7 @@ const handleLoginSubmit = async (e: React.FormEvent) => {
         // 성공적으로 응답을 받으면
         console.log('로그인 성공:', response.data);
         // 필요하다면 응답받은 토큰 등을 저장하는 로직 추가
-        // 예: localStorage.setItem('token', response.data.token);
+        localStorage.setItem("accessToken", response.data.access_token);
         
         onLogin(); // App.tsx의 로그인 상태 변경
         navigate('/'); // 메인 페이지로 이동

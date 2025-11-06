@@ -6,7 +6,7 @@ import axios from "axios";
 const API = import.meta.env.VITE_API_URL;
 
 interface Document {
-  id: number;
+  id: string;
   title: string;
   updatedAt: string;
 }
@@ -14,60 +14,64 @@ interface Document {
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    localStorage.getItem("accessToken")
+  );
 
   const handleOpenDocument = (docId: string) => {
     navigate(`/ChatInterface/${docId}`); //App.tsx에 라우팅 구현, 문서 클릭하면 챗봇으로 감
   }
 
-  //마이페이지 예시, 실제 배포할 때는 로그인 페이지에서 처리해야함
-  useEffect(() => {
-    const loginTestAccount = async () => {
+
+  const fetchContracts = async () => {
+    if (!accessToken) return;
+
     try {
-      const res = await axios.post(
-          `${API}/api/users/login`,
-          {
-            email: "aa11@example.com",
-            password: "aa1111",
-          }
-      );
-      console.log("로그인 성공:", res.data);
-      setAccessToken(res.data.access_token);
+      const res = await axios.get(`${API}/api/contracts/`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        withCredentials: true,
+      });
+      const docs: Document[] = res.data.map((c: any) => ({
+        id: c.id,
+        title: c.contract_type,
+        updatedAt: c.updated_at || "",
+      }));
+      setDocuments(docs);
     } catch (err) {
-      console.error("로그인 실패", err);
+      console.error("문서 불러오기 실패", err);
     }
   };
-  
-  loginTestAccount();
-}, []);
 
   useEffect(() => {
-    const fetchContracts = async () => {
-      if(!accessToken) return; //토큰 없으면 요청 X
-
-      try {
-        const res = await axios.get(`${API}/api/contracts/`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            withCredentials: true,
-          },
-        });
-         const docs: Document[] = res.data.map((c: any) => ({
-          id: c.id,
-          title: c.contract_type,        // 예: 서버에서 contract_type 가져오기
-          updatedAt: c.updated_at || "", // 서버에서 updated_at 필드 사용
-        }));
-        setDocuments(docs);
-      } catch (err) {
-        console.error("문서 불러오기 실패", err);
-      } 
-    };
-
-    fetchContracts();
+    if (accessToken) 
+      fetchContracts();
   }, [accessToken]);
+    
 
-  const handleCreateNew = () => {
-    navigate("/ChatInterface"); // 문서 작성 페이지
+  const handleCreateNew = async () => {
+    if (!accessToken) return;
+    
+    try {
+      const res = await axios.post(
+        `${API}/api/contracts/`,
+        { contract_type: "새 문서" }, // 필요한 데이터
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+
+      setDocuments((prev) => [ 
+        ...prev, { 
+          id: res.data.id, 
+          title: res.data.contract_type, 
+          updatedAt: res.data.updated_at || new Date().toISOString(), 
+        }, 
+      ]);
+      
+      await fetchContracts();
+      navigate(`/ChatInterface/${res.data.id}`); // 생성된 문서 페이지로 이동
+    } catch (err) {
+      console.error("문서 생성 실패", err)
+    }
+  
   };
 
   return (
