@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'; // 스타일시트는 그대로 사용합니다.
+import apiClient from '../../api/api';
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -38,13 +39,29 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     }
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 로그인 시도 시, 에러가 없는지 최종 확인
     if (email && password && !emailError && !passwordError) {
-      console.log('로그인 시도:', { email, password });
-      onLogin();
-      navigate('/');
+      try {
+        // API 서버에 로그인 요청
+        const response = await apiClient.post('/api/users/login', { // 👈 API 엔드포인트에 맞게 수정
+          email: email,
+          password: password,
+        });
+
+        // 성공적으로 응답을 받으면
+        console.log('로그인 성공:', response.data);
+        // 필요하다면 응답받은 토큰 등을 저장하는 로직 추가
+        // 예: localStorage.setItem('token', response.data.token);
+        
+        onLogin(); // App.tsx의 로그인 상태 변경
+        navigate('/'); // 메인 페이지로 이동
+
+      } catch (error) {
+        // 에러 처리
+        console.error('로그인 실패:', error);
+        alert('이메일 또는 비밀번호가 일치하지 않습니다.');
+      }
     } else {
       alert('이메일과 비밀번호를 다시 확인해주세요.');
     }
