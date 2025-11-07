@@ -1,25 +1,77 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import ResizedImage from "./resize";
+import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
 
 interface Document {
-  id: number;
+  id: string;
   title: string;
   updatedAt: string;
 }
 
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    localStorage.getItem("accessToken")
+  );
 
-  const documents: Document[] = [
-    { id: 1, title: "크누커피 근로계약서", updatedAt: "2025. 08. 13" },
-    { id: 2, title: "근로계약서 - 호반우", updatedAt: "2024. 07. 22" },
-    { id: 3, title: "감꽃식당 근로계약서", updatedAt: "2024. 03. 01" },
-  ];
+  const handleOpenDocument = (docId: string) => {
+    navigate(`/ChatInterface/${docId}`); //App.tsx에 라우팅 구현, 문서 클릭하면 챗봇으로 감
+  }
 
-  const handleCreateNew = () => {
-    navigate("/ChatInterface"); // 문서 작성 페이지
+
+  const fetchContracts = async () => {
+    if (!accessToken) return;
+
+    try {
+      const res = await axios.get(`${API}/api/contracts/`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        withCredentials: true,
+      });
+      const docs: Document[] = res.data.map((c: any) => ({
+        id: c.id,
+        title: c.contract_type,
+        updatedAt: c.updated_at || "",
+      }));
+      setDocuments(docs);
+    } catch (err) {
+      console.error("문서 불러오기 실패", err);
+    }
+  };
+
+  useEffect(() => {
+    if (accessToken) 
+      fetchContracts();
+  }, [accessToken]);
+    
+
+  const handleCreateNew = async () => {
+    if (!accessToken) return;
+    
+    try {
+      const res = await axios.post(
+        `${API}/api/contracts/`,
+        { contract_type: "새 문서" }, // 필요한 데이터
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+
+      setDocuments((prev) => [ 
+        ...prev, { 
+          id: res.data.id, 
+          title: res.data.contract_type, 
+          updatedAt: res.data.updated_at || new Date().toISOString(), 
+        }, 
+      ]);
+      
+      await fetchContracts();
+      navigate(`/ChatInterface/${res.data.id}`); // 생성된 문서 페이지로 이동
+    } catch (err) {
+      console.error("문서 생성 실패", err)
+    }
+  
   };
 
   return (
@@ -63,8 +115,10 @@ const MyPage: React.FC = () => {
                 backgroundColor: '#fff',
                 borderRadius: '8px',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                textAlign: 'center'
+                textAlign: 'center',
+                cursor: 'pointer',
               }}
+              onClick={() => handleOpenDocument(doc.id.toString())}
             >
               <ResizedImage width={160} height={160} alt={doc.title} />
               <div style={{ padding: '8px' }}>
@@ -73,10 +127,12 @@ const MyPage: React.FC = () => {
               </div>
             </div>
           ))}
+          
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default MyPage;

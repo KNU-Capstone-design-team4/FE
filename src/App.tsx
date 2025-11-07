@@ -36,6 +36,7 @@ const App: React.FC = () => {
         <Route path="/mypage" element = {<MyPage />} />
         <Route path="/DocumentEditorPage" element={<Chatbot />} />
         <Route path="/ChatInterface" element={<DocumentEditorPage />} />
+        <Route path="/ChatInterface/:contractId" element={<DocumentEditorPage />} />
       </Route>
       <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} />} />
       <Route path="/login_intro" element={<LoginIntroPage />} />
