@@ -32,9 +32,6 @@ const MyPage: React.FC = () => {
         withCredentials: true,
       });
       const docs: Document[] = res.data.map((c: any) => {
-
-        //const utcDate = new Date(c.updated_at);
-        //const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
         const localDate = new Date(c.updated_at);
         const formatted = localDate.toLocaleString("ko-KR", {
           year: "numeric",
