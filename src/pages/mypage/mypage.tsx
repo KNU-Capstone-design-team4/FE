@@ -31,13 +31,6 @@ const MyPage: React.FC = () => {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
-<<<<<<< Updated upstream
-      const docs: Document[] = res.data.map((c: any) => ({
-        id: c.id,
-        title: c.contract_type,
-        updatedAt: c.updated_at || "",
-      }));
-=======
 
       const docs: Document[] = res.data.map((c: any) => {
         const localDate = new Date(c.updated_at);
@@ -56,7 +49,6 @@ const MyPage: React.FC = () => {
         };
       });
 
->>>>>>> Stashed changes
       setDocuments(docs);
     } catch (err) {
       console.error("문서 불러오기 실패", err);
