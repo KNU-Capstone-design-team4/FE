@@ -31,11 +31,22 @@ const MyPage: React.FC = () => {
         headers: { Authorization: `Bearer ${accessToken}` },
         withCredentials: true,
       });
-      const docs: Document[] = res.data.map((c: any) => ({
-        id: c.id,
-        title: c.contract_type,
-        updatedAt: c.updated_at || "",
-      }));
+      const docs: Document[] = res.data.map((c: any) => {
+        const localDate = new Date(c.updated_at);
+        const formatted = localDate.toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        return {
+          id: c.id,
+          title: c.contract_type,
+          updatedAt: formatted,
+        }
+      });
       setDocuments(docs);
     } catch (err) {
       console.error("문서 불러오기 실패", err);
