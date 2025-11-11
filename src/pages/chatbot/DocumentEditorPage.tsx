@@ -55,8 +55,7 @@ const DocumentEditorPage: React.FC = () => {
   }, [contractId]);
 
   
-  const handleSendMessage = async (inputText: string) => {
-    // (이하 handleSendMessage 로직은 이전과 동일)
+const handleSendMessage = async (inputText: string) => {
     if (isLoading || !contractId) return;
 
     setIsLoading(true);
@@ -69,17 +68,24 @@ const DocumentEditorPage: React.FC = () => {
         message: inputText,
       });
 
-      const { reply, updated_field } = response.data; 
+      // 👇 [수정] 백엔드의 ChatResponse 스키마에 맞게 구조 분해
+      const { reply, updated_field, full_contract_data } = response.data;
 
+      // 👇 [수정] aiMessage 대신 reply 사용
       setMessages((prev) => [
         ...prev,
-        { sender: 'ai', text: reply } // 👈 aiMessage 대신 reply 사용
+        { sender: 'ai', text: reply }
       ]);
 
-      if (updated_field) { // 👈 updatedData 대신 updated_field 확인
+      // 👇 [수정] 백엔드가 보낸 전체 데이터로 state를 덮어쓰기
+      if (full_contract_data) {
+        setFilledData(full_contract_data);
+      } 
+      // 만약 full_contract_data가 없다면(RAG 답변 등), updated_field로 부분 업데이트
+      else if (updated_field) {
         setFilledData((prevData) => ({
           ...prevData,
-          [updated_field.field_id]: updated_field.value, // 👈 구조에 맞게 업데이트
+          [updated_field.field_id]: updated_field.value,
         }));
       }
 
