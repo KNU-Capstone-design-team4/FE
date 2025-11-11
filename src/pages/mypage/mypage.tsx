@@ -69,13 +69,13 @@ const MyPage: React.FC = () => {
       // 
       const res = await apiClient.post(
         `/api/contracts`,
-        { contract_type: "새 문서" }, 
+        { contract_type: "근로계약서" }, 
       );
 
       setDocuments((prev) => [ 
         ...prev, { 
           id: res.data.id, 
-          title: res.data.contract_type, 
+          title: "근로계약서", 
           updatedAt: res.data.updated_at || new Date().toISOString(), 
         }, 
       ]);
