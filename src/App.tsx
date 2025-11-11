@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import Layout from './components/Layout';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import DocumentEditorPage from './pages/chatbot/DocumentEditorPage';
-import LoginIntroPage from './pages/login/login_intro';
-import LoginPage from './pages/login/loginpage';
-import RegisterPage from './pages/register/RegisterPage';
-import LandingPage from './pages/landing/landing';
-import MyPage from "./pages/mypage/mypage";
-import Chatbot from "./pages/chatbot/ChatInterface";
+import Layout from './components/Layout.tsx';
+import Hero from './components/Hero.tsx';
+import Features from './components/Features.tsx';
+import DocumentEditorPage from './pages/chatbot/DocumentEditorPage.tsx';
+import LoginIntroPage from './pages/login/login_intro.tsx';
+import LoginPage from './pages/login/loginpage.tsx';
+import RegisterPage from './pages/register/RegisterPage.tsx';
+import LandingPage from './pages/landing/landing.tsx';
+import MyPage from "./pages/mypage/mypage.tsx";
+import Chatbot from "./pages/chatbot/ChatInterface.tsx";
 
 // MainPage 컴포넌트는 isLoggedIn prop을 받도록 수정합니다.
 const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
@@ -23,9 +23,23 @@ const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
 );
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 
+  // 👇 [수정 1] useState의 초기값을 localStorage에서 확인하도록 변경
+  // 
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    // localStorage에 "accessToken"이 있으면 true, 없으면 false로 시작
+    return !!localStorage.getItem("accessToken");
+  });
+
   const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+
+  // 
+  // 👇 [수정 2] 로그아웃 시 localStorage에서도 토큰을 삭제하도록 변경
+  // 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken"); // 저장된 토큰 삭제
+    setIsLoggedIn(false); // 상태 업데이트
+  };
 
   return (
     <Routes>
@@ -47,7 +61,5 @@ const App: React.FC = () => {
 
   );
 };
-
-
 
 export default App;
