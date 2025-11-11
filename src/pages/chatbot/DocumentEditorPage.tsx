@@ -69,17 +69,17 @@ const DocumentEditorPage: React.FC = () => {
         message: inputText,
       });
 
-      const { aiMessage, updatedData } = response.data;
+      const { reply, updated_field } = response.data; 
 
       setMessages((prev) => [
         ...prev,
-        { sender: 'ai', text: aiMessage }
+        { sender: 'ai', text: reply } // 👈 aiMessage 대신 reply 사용
       ]);
 
-      if (updatedData) {
+      if (updated_field) { // 👈 updatedData 대신 updated_field 확인
         setFilledData((prevData) => ({
           ...prevData,
-          ...updatedData,
+          [updated_field.field_id]: updated_field.value, // 👈 구조에 맞게 업데이트
         }));
       }
 

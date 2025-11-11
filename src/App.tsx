@@ -11,7 +11,6 @@ import LoginPage from './pages/login/loginpage.tsx';
 import RegisterPage from './pages/register/RegisterPage.tsx';
 import LandingPage from './pages/landing/landing.tsx';
 import MyPage from "./pages/mypage/mypage.tsx";
-import Chatbot from "./pages/chatbot/ChatInterface.tsx";
 
 // MainPage 컴포넌트는 isLoggedIn prop을 받도록 수정합니다.
 const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
@@ -48,7 +47,7 @@ const App: React.FC = () => {
         <Route path="/main" element={<MainPage isLoggedIn={isLoggedIn} />} />
         <Route path="/chatbot" element={<DocumentEditorPage />} />
         <Route path="/mypage" element = {<MyPage />} />
-        <Route path="/DocumentEditorPage" element={<Chatbot />} />
+        <Route path="/DocumentEditorPage" element={<DocumentEditorPage />} /> 
         <Route path="/ChatInterface" element={<DocumentEditorPage />} />
         <Route path="/ChatInterface/:contractId" element={<DocumentEditorPage />} />
       </Route>
