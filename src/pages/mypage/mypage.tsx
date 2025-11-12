@@ -109,7 +109,9 @@ const MyPage: React.FC = () => {
     <div 
       className="auth-container"
       style={{
-        minHeight: "100vh",
+        minHeight: "calc(100vh - 61px)",
+        height: "auto",
+        backgroundColor: "#F9FAFB",
         boxSizing: "border-box",
         display: "block",
         //flexDirection: "column",
