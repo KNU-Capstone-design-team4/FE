@@ -26,7 +26,7 @@ header {
   padding: 10px 40px;
   background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
-  /* Header의 높이를 61px로 고정 (패딩 20*2 + 로고 40 + 테두리 1) */
+  /* Header의 높이를 81px로 고정 (패딩 20*2 + 로고 40 + 테두리 1) */
   height: 61px;
   box-sizing: border-box; /* 패딩, 테두리를 높이에 포함 */
 }
@@ -54,17 +54,91 @@ header nav .btn-login {
   border: 1px solid #333;
 }
 
+/* 👇👇👇 핵심 수정 부분 👇👇👇 */
 /* Layout 컴포넌트의 실제 페이지 내용이 표시될 영역 */
 .page-content {
   display: flex;
   flex-direction: column;
-  /* Header 높이(61px)를 제외한 나머지 뷰포트 높이 전체를 차지하도록 계산 */
+  /* Header 높이(81px)를 제외한 나머지 뷰포트 높이 전체를 차지하도록 계산 */
   height: calc(100vh - 61px); 
-  /* 👇 [추가] 내용이 넘칠 경우 스크롤이 가능하도록 */
-  overflow-y: auto;
 }
 
-/* 👇👇👇 [핵심 수정] 👇👇👇
-  MainPage.tsx의 Tailwind 스타일과 충돌하던
-  main, .hero, .features, .card 관련 스타일을 모두 삭제했습니다.
-*/
+main {
+  flex-grow: 1;
+  padding: 0 40px;
+  background-color: #ffffff;
+}
+
+/* ... 이하 Hero, features, card 등 나머지 스타일은 그대로 유지 ... */
+.hero {
+  background-color: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 300px;
+  margin-top: 20px;
+}
+.hero-logo-box {
+  width: 40%;
+  height: 100%;
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.hero-text-box {
+  padding-left: 50px;
+}
+.hero-text-box .author {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+.hero-logo-image {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+.hero-text-box h1 {
+  font-size: 60px;
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+.hero-text-box .read-more {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+.features {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 40px;
+}
+.card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 30px;
+  width: 48%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.card h2 {
+  color: #b35f5f;
+  font-size: 20px;
+  margin-top: 0;
+}
+.card p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 15px;
+}
+.card a {
+  display: block;
+  text-align: right;
+  color: #777;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 20px;
+}
