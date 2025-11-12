@@ -23,25 +23,39 @@ const DocumentEditorPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(true);
 
-  useEffect(() => {
-    if (!contractId) return;
+useEffect(() => {
+    if (!contractId) {
+      // contractId가 없으면 로딩 중단 (신규 챗봇 생성 로직 필요 - 3번 항목 참고)
+      setIsPageLoading(false); 
+      return;
+    }
 
     const fetchContractDetails = async () => {
       setIsPageLoading(true);
       try {
         const response = await apiClient.get(`/api/contracts/${contractId}`);
         
-        const { templateHtml, chatHistory, data } = response.data;
+        // 
+        // 👇 [수정 1] 'data' 대신 'content'를 받도록 수정합니다.
+        // 
+        const { templateHtml, chatHistory, content } = response.data;
         
         setDocumentTemplate(templateHtml);
         
         // 
-        // 👇 (수정됨) chatHistory가 undefined일 경우 빈 배열([])을 사용합니다.
+        // 👇 [수정 2] 'chatHistory' 데이터 포맷을 변환합니다.
         // 
-        setMessages(chatHistory || []); 
+        const rawHistory = chatHistory || [];
+        const formattedHistory: Message[] = rawHistory.map((msg: any) => ({
+          sender: msg.sender === 'bot' ? 'ai' : 'user', // 'bot'을 'ai'로 변경
+          text: msg.message // 'message'를 'text'로 변경
+        }));
+        setMessages(formattedHistory); 
         
-        // 👇 (수정됨) data가 undefined일 경우 빈 객체({})를 사용합니다.
-        setFilledData(data || {}); 
+        // 
+        // 👇 [수정 3] 'data' 대신 'content'를 사용합니다.
+        // 
+        setFilledData(content || {}); 
 
       } catch (error) {
         console.error("계약 정보 로드 실패:", error);
