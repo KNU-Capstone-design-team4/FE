@@ -109,43 +109,51 @@ const MyPage: React.FC = () => {
     <div 
       className="auth-container"
       style={{
-        minHeight: "calc(100vh - 61px)",
-        height: "auto",
+        height: "calc(100vh - 61px)",
         backgroundColor: "#F9FAFB",
-        boxSizing: "border-box",
-        display: "block",
-        //flexDirection: "column",
-        //alignItems: "center",
-        paddingTop: "80px",
-        paddingBottom: "60px",
-        //overflowY: "visible",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        //paddingTop: "80px",
+        //paddingBottom: "60px",
+        overflow: "auto",
         //padding: "80px 0 60px",
+        boxSizing: "border-box",
       }}
     >
       <div className="auth-box"
         style={{
           width: "100%",
           maxWidth: "1200px",
-          margin: "0 auto",
           textAlign: "center",
+          boxSizing: "border-box",
+          //overflowY: "auto",
+          padding: "80px 0 60px",
+          margin: 0,
         }}
       >
         <h1 className="auth-title"
           style={{
-            position: "sticky",
-            textAlign: "center",
-            marginTop: "0",
-            marginBottom: "8px"
+            margin: "0",
+            marginBottom: "8px",
+            fontSize: "32px",
+            fontWeight: "700",
+            fontFamily: "'Noto Sans KR', sans-serif",
+            position: "static",
+            backgroundColor: "transparent",
           }}
         >
           마이페이지</h1>
         <p 
           className="text-gray-600 mb-6"
           style={{ 
-            textAlign: "center", 
+            //textAlign: "center", 
             marginTop: "10px",
             marginBottom: "40px", 
-            color: "#666" 
+            color: "#666",
+            fontSize: "16px",
+            fontWeight: "400",
           }}
         >당신의 문서를 관리하고 열람하세요!
         </p>
@@ -158,7 +166,7 @@ const MyPage: React.FC = () => {
             //flexDirection: "row",
             gap: "24px",
             //flexWrap: "wrap",
-            justifyContent: "center",
+            justifyItems: "center",
             //alignItems: "start",
             margin: "0 auto",
             width: "100%",
