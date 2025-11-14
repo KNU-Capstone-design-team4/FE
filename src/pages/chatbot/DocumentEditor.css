@@ -2,51 +2,78 @@
 .editor-container {
   display: flex;
   width: 100%;
-  height: 100%; /* 👈 수정: 부모(.page-content)의 높이를 그대로 받습니다. */
-  gap: 20px;
-  background-color: #f0f2f5;
-  padding: 20px;
+  height: 100%; /* 부모(.page-content)의 높이를 그대로 받습니다. */
+  background-color: #f0f2f5; /* 다른 페이지와 동일한 배경색 */
   box-sizing: border-box;
 }
 
 /* 왼쪽 문서 뷰어 */
 .document-viewer {
   flex: 3;
-  background-color: #ffffff;
+  background-color: #f0f2f5; /* 컨테이너 배경색과 동일하게 */
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   overflow-y: auto;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: center; /* 플레이스홀더 중앙 정렬 */
+  align-items: center; /* 플레이스홀더 중앙 정렬 */
 }
+
+/* (신규) 문서 뷰어 플레이스홀더 스타일 */
+.document-placeholder {
+  width: 350px;
+  padding: 40px 20px;
+  border: 2px dashed #cccccc;
+  border-radius: 8px;
+  text-align: center;
+  color: #888888;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #ffffff; /* 플레이스홀더 자체는 흰색 배경 */
+}
+
+.document-placeholder-dots {
+  font-size: 24px;
+  letter-spacing: 0.5em;
+  color: #aaaaaa;
+  margin-top: 20px;
+}
+
+/* (삭제) .document-image 스타일은 플레이스홀더로 대체되었으므로 삭제 (또는 주석 처리) */
+/*
 .document-image {
   max-width: 100%;
   height: auto;
   border: 1px solid #e0e0e0;
 }
+*/
 
-/* 오른쪽 채팅 인터페이스 */
+/* 오른쪽 채팅 인터페이스 (테마 수정) */
 .chat-interface {
   flex: 2;
   display: flex;
   flex-direction: column;
-  background-color: #888888;
-  color: #f8f9fa;
+  background-color: #ffffff; /* 어두운 배경 -> 흰색 배경 */
+  color: #333333; /* 글자색 בהיר -> 어둡게 */
   border-radius: 8px;
   overflow: hidden;
+  border-left: 1px solid #e0e0e0; /* 구분선 추가 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 */
 }
 
-/* ... 이하 나머지 스타일은 그대로 유지 ... */
+/* 채팅 헤더 (테마 수정) */
 .chat-header {
   padding: 15px 20px;
-  background-color: #888888;
+  background-color: #ffffff; /* 어두운 배경 -> 흰색 배경 */
+  border-bottom: 1px solid #e0e0e0; /* 구분선 */
 }
 .chat-header h3 {
   margin: 0;
   font-size: 18px;
+  color: #333; /* 글자색 */
 }
+
+/* 채팅 메시지 영역 */
 .chat-messages {
   flex-grow: 1;
   padding: 20px;
@@ -54,7 +81,9 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  background-color: #f8f9fa; /* 채팅 배경은 약간 다른 회색 */
 }
+
 .message {
   padding: 10px 15px;
   border-radius: 12px;
@@ -65,45 +94,135 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+/* 사용자 메시지 (테마 수정) */
 .message.user {
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  background-color: #000000; /* 로그인 버튼과 동일한 검은색 */
+  color: #ffffff; /* 글자색 흰색 */
   align-self: flex-end;
   border-bottom-right-radius: 0;
 }
+
+/* AI 메시지 (테마 수정) */
 .message.ai {
-  background-color: #000000;
-  color: #f8f9fa;
+  background-color: #ffffff; /* 흰색 배경 */
+  color: #333333; /* 검은색 글자 */
   align-self: flex-start;
   border-bottom-left-radius: 0;
+  border: 1px solid #e0e0e0; /* AI 메시지는 테두리 */
 }
+
+/* 채팅 입력 영역 (테마 및 UI 수정) */
 .chat-input-area {
   display: flex;
+  align-items: center; /* 버튼과 인풋 세로 정렬 */
   padding: 15px;
-  border-top: 1px solid #495057;
+  border-top: 1px solid #e0e0e0; /* 상단 구분선 색상 변경 */
+  background-color: #ffffff;
 }
+
+/* (신규) + 버튼 스타일 */
+.chat-attach-button {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  margin-right: 10px;
+  flex-shrink: 0;
+  padding: 0;
+}
+.chat-attach-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* 채팅 입력창 (테마 및 UI 수정) */
 .chat-input-area input {
   flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #6c757d;
+  padding: 10px 15px;
+  border: 1px solid #ffffff; /* 테두리 제거 */
   border-radius: 20px;
-  background-color: #ffffff;
+  background-color: #f0f2f5; /* 이미지와 유사한 회색 배경 */
   color: #000000;
   outline: none;
   margin-right: 10px;
+  font-size: 15px;
 }
 .chat-input-area input::placeholder {
-  color: #adb5bd;
+  color: #888888; /* 플레이스홀더 색상 */
 }
+
+/* 전송 버튼 (테마 및 UI 수정) */
 .chat-input-area button {
-  padding: 10px 20px;
+  padding: 0;
   border: none;
-  border-radius: 20px;
-  background-color: #000000;
+  border-radius: 50%; /* 원형 버튼 */
+  width: 36px;
+  height: 36px;
+  background-color: #cccccc; /* 이미지와 유사한 비활성 회색 */
   color: white;
   cursor: pointer;
   font-weight: bold;
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 36px; /* 아이콘 중앙 정렬 */
 }
+
+/* (신규) 전송 버튼 호버 스타일 */
 .chat-input-area button:hover {
-  background-color: #888888;
+  background-color: #aaaaaa;
 }
+
+/* (신규) .chat-send-button 클래스로 특정 */
+.chat-send-button {
+  /* 위 button 스타일이 적용됨 */
+}
+/* ... DocumentEditor.css의 기존 스타일 ... */
+
+/* (신규) 템플릿이 로드되었을 때의 컨텐츠 영역 */
+.document-content {
+  width: 100%;
+  max-width: 800px; /* A4 용지 비율과 유사하게 */
+  background-color: #ffffff;
+  padding: 40px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  line-height: 1.8;
+  color: #333;
+}
+
+.document-content h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.document-content p {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+/* (신규) 실시간으로 채워진 데이터를 하이라이트하는 스타일 */
+.filled-data {
+  font-weight: 700;
+  color: #000000; /* 로그인 버튼 등과 일관된 검은색 */
+  background-color: #f0f0f0; /* 연한 회색 배경 */
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* (신규) 아직 채워지지 않은 플레이스홀더 스타일 */
+.empty-placeholder {
+  font-weight: 400;
+  color: #999999;
+  background-color: #f9f9f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px dashed #cccccc;
+}
+
+/* ... 이하 .chat-interface 등 나머지 스타일 ... */
