@@ -78,27 +78,7 @@ const MyPage: React.FC = () => {
       ]);
       
       await fetchContracts();
-      navigate(`/ChatInterface/${res.data.id}`);
-    } catch (err) {
-      console.error("문서 생성 실패", err);
-    }
-  };
-
-  // ✅ 문서 삭제 핸들러
-  const handleDeleteDocument = async (e: React.MouseEvent, docId: string) => {
-    e.stopPropagation(); // 
-
-    if (!accessToken) return;
-    const confirmDelete = window.confirm("정말 이 문서를 삭제하시겠습니까?");
-    if (!confirmDelete) return;
-
-    try {
-      await axios.delete(`${API}/api/contracts/${docId}/`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-
-      setDocuments((prev) => prev.filter((d) => d.id !== docId));
-      console.log("문서 삭제 완료");
+      navigate(`/ChatInterface/${res.data.id}`); // 생성된 문서 페이지로 이동
     } catch (err) {
       console.error("문서 생성 실패", err)
     }
