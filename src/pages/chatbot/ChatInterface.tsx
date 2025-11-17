@@ -72,7 +72,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSendClick()}
-          placeholder={isLoading ? "AI가 응답을 준비 중입니다..." : "사례를 입력해 주세요. (15자 이상)"}
+          placeholder={isLoading ? "AI가 응답을 준비 중입니다..." : "질문에 대답해주세요"}
           disabled={isLoading}
         />
         <button 
