@@ -38,14 +38,14 @@ useEffect(() => {
         // 
         // 👇 [수정 1] 'data' 대신 'content'를 받도록 수정합니다.
         // 
-        const { templateHtml, chatHistory, content } = response.data;
+        const { templateHtml, chat_history, content } = response.data;
         
         setDocumentTemplate(templateHtml);
         
         // 
         // 👇 [수정 2] 'chatHistory' 데이터 포맷을 변환합니다.
         // 
-        const rawHistory = chatHistory || [];
+        const rawHistory = chat_history || [];
         const formattedHistory: Message[] = rawHistory.map((msg: any) => ({
           sender: msg.sender === 'bot' ? 'ai' : 'user', // 'bot'을 'ai'로 변경
           text: msg.message // 'message'를 'text'로 변경
