@@ -36,14 +36,14 @@ useEffect(() => {
         const response = await apiClient.get(`/api/contracts/${contractId}`);
         
         // 
-        // 👇 [수정 1] 'data' 대신 'content'를 받도록 수정합니다.
+        // 👇 [유지] 'chat_history' 키를 사용합니다.
         // 
         const { templateHtml, chat_history, content } = response.data;
         
         setDocumentTemplate(templateHtml);
         
         // 
-        // 👇 [수정 2] 'chatHistory' 데이터 포맷을 변환합니다.
+        // 👇 [유지] 'chat_history' 데이터 포맷을 변환합니다.
         // 
         const rawHistory = chat_history || [];
         const formattedHistory: Message[] = rawHistory.map((msg: any) => ({
@@ -53,7 +53,7 @@ useEffect(() => {
         setMessages(formattedHistory); 
         
         // 
-        // 👇 [수정 3] 'data' 대신 'content'를 사용합니다.
+        // 👇 [유지] 'content'를 사용합니다.
         // 
         setFilledData(content || {}); 
 
@@ -82,16 +82,16 @@ const handleSendMessage = async (inputText: string) => {
         message: inputText,
       });
 
-      // 👇 [수정] 백엔드의 ChatResponse 스키마에 맞게 구조 분해
+      // 👇 [유지] 백엔드의 ChatResponse 스키마에 맞게 구조 분해
       const { reply, updated_field, full_contract_data } = response.data;
 
-      // 👇 [수정] aiMessage 대신 reply 사용
+      // 👇 [유지] aiMessage 대신 reply 사용
       setMessages((prev) => [
         ...prev,
         { sender: 'ai', text: reply }
       ]);
 
-      // 👇 [수정] 백엔드가 보낸 전체 데이터로 state를 덮어쓰기
+      // 👇 [유지] 백엔드가 보낸 전체 데이터로 state를 덮어쓰기
       if (full_contract_data) {
         setFilledData(full_contract_data);
       } 
@@ -114,15 +114,65 @@ const handleSendMessage = async (inputText: string) => {
     }
   };
 
+  // 👇 [추가] onBlur 이벤트를 처리할 자동 저장 함수 (이미지 참고)
+  const handleFieldUpdate = async (fieldId: string, value: string) => {
+    // 현재 React state의 값과 동일하면 API 요청을 보내지 않음 (최적화)
+    if (filledData[fieldId] === value) {
+      return;
+    }
+
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      console.error("Auto-save failed: Not logged in");
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    // 이미지에서 설명한 payload 형식
+    const payload = {
+      content: {
+        [fieldId]: value,
+      },
+    };
+
+    try {
+      //  PATCH 요청 전송
+      await apiClient.patch(
+        `/api/contracts/${contractId}/content`, 
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`, // 토큰 필수
+          },
+        }
+      );
+      
+      console.log(`[Auto-Save] ${fieldId} = ${value}`);
+
+      // API 저장이 성공하면, React의 로컬 state도 업데이트
+      setFilledData((prevData) => ({
+        ...prevData,
+        [fieldId]: value,
+      }));
+
+    } catch (error) {
+      console.error("Auto-save failed:", error);
+    }
+  };
+
+
   if (isPageLoading) {
     return <div className="editor-container">페이지 로딩 중...</div>;
   }
 
   return (
     <div className="editor-container">
+      {/* 👇 [수정] 자동 저장 함수를 prop으로 전달 */}
       <DocumentViewer
         template={documentTemplate}
         data={filledData}
+        onFieldUpdate={handleFieldUpdate} 
       />
       <ChatInterface
         messages={messages}

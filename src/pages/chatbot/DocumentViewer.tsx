@@ -6,21 +6,60 @@ import './DocumentEditor.css'; // 스타일은 그대로 사용합니다.
 interface DocumentViewerProps {
   template: string | null;
   data: { [key: string]: string };
+  onFieldUpdate: (fieldId: string, value: string) => void; // 👇 [추가] 자동 저장 prop
 }
 
-const DocumentViewer: React.FC<DocumentViewerProps> = ({ template, data }) => {
+const DocumentViewer: React.FC<DocumentViewerProps> = ({ 
+  template, 
+  data, 
+  onFieldUpdate // 👇 [추가]
+}) => {
   // div 요소를 직접 참조하기 위해 useRef 사용
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 1. 템플릿 HTML 렌더링 (template이 바뀔 때만 실행)
+  // [수정] 1. 템플릿 HTML 렌더링 + onBlur 이벤트 리스너 부착
   useEffect(() => {
-    if (containerRef.current && template) {
-      // 템플릿 HTML을 div 내부에 렌더링
-      containerRef.current.innerHTML = template;
-    }
-  }, [template]); // 'template'이 바뀔 때만 실행
+    const container = containerRef.current;
+    if (!container) return;
 
-  // 2. 데이터 바인딩 (data가 바뀔 때마다 실행)
+    // 1. 템플릿 HTML 렌더링
+    if (template) {
+      container.innerHTML = template;
+    }
+
+    // 2. [추가] onBlur 이벤트 핸들러 (이벤트 위임)
+    const handleBlur = (event: FocusEvent) => {
+      const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+      
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+        const fieldId = target.name;
+        
+        // 체크박스일 경우 값 처리 (true/false)
+        let value: string | boolean = target.value;
+        if ((target as HTMLInputElement).type === 'checkbox') {
+           value = (target as HTMLInputElement).checked;
+        }
+        
+        if (fieldId) {
+          // 부모에게 fieldId와 value(string으로 변환)를 전달
+          onFieldUpdate(fieldId, String(value));
+        }
+      }
+    };
+
+    // 3. [추가] 컨테이너에 blur 이벤트 리스너 추가 (캡처링 사용)
+    // 'true' (useCapture) 옵션으로 자식 요소의 blur 이벤트를 감지
+    container.addEventListener('blur', handleBlur, true);
+
+    // 4. [추가] 클린업 함수: 컴포넌트가 사라질 때 이벤트 리스너 제거
+    return () => {
+      container.removeEventListener('blur', handleBlur, true);
+    };
+
+  }, [template, onFieldUpdate]); // 👈 onFieldUpdate를 의존성 배열에 추가
+
+
+  // [유지] 2. 데이터 바인딩 (data가 바뀔 때마다 실행)
   useEffect(() => {
     // 렌더링된 HTML이 없으면 중단
     if (!containerRef.current) {
@@ -35,23 +74,26 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ template, data }) => {
       >(`[name="${key}"]`);
 
       if (element) {
-        // 찾은 요소의 'value'를 data 객체의 값으로 설정
-if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'checkbox') {
+        // [유지] 체크박스 로직
+        if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'checkbox') {
           
           const dataValue = data[key];
           
-          // 2. data[key] 값을 boolean으로 변환하여 .checked 속성에 할당
-          // (서버에서 "true", "on", true, 1 등을 보낼 수 있으므로 안전하게 확인)
+          // data[key] 값을 boolean으로 변환하여 .checked 속성에 할당
           (element as HTMLInputElement).checked = 
               dataValue === true || 
               dataValue === 'true' || 
               dataValue === 'on' || 
-              dataValue === 1;
+              (dataValue as any) === 1; // 👈 (any) 캐스팅은 원본 코드 유지
 
         } else {
-          // 3. 체크박스가 아닌 경우 (text, textarea 등) .value 속성에 할당
-          element.value = data[key] || '';
-        }      }
+          // [수정] 체크박스가 아닌 경우 + onBlur 충돌 방지
+          // 현재 포커스된(사용자가 입력 중인) 요소가 아닐 때만 값을 덮어쓰기
+          if (document.activeElement !== element) {
+            element.value = data[key] || '';
+          }
+        }      
+      }
     });
   }, [data, template]); // 'data' 또는 'template'이 바뀔 때마다 실행
 
