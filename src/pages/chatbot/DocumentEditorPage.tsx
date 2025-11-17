@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import DocumentViewer from './DocumentViewer';
 import ChatInterface from './ChatInterface';
 import './DocumentEditor.css';
+import apiClient from '../../api/api';
+
+// (Message, FilledData 인터페이스는 동일)
+interface Message {
+  sender: 'user' | 'ai';
+  text: string;
+}
+interface FilledData {
+  [key: string]: string;
+}
 
 const DocumentEditorPage: React.FC = () => {
   const { contractId } = useParams<{ contractId: string }>();
@@ -109,8 +120,15 @@ const handleSendMessage = async (inputText: string) => {
 
   return (
     <div className="editor-container">
-      <DocumentViewer />
-      <ChatInterface />
+      <DocumentViewer
+        template={documentTemplate}
+        data={filledData}
+      />
+      <ChatInterface
+        messages={messages}
+        onSendMessage={handleSendMessage}
+        isLoading={isLoading} 
+      />
     </div>
   );
 };

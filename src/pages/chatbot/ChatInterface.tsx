@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'; // 👈 1. useEffect와 useRef를 import
 import './DocumentEditor.css';
 
+// 메시지 타입 정의 (부모와 동일)
 interface Message {
   sender: 'user' | 'ai';
   text: string;
