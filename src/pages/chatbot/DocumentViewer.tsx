@@ -36,22 +36,8 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ template, data }) => {
 
       if (element) {
         // 찾은 요소의 'value'를 data 객체의 값으로 설정
-if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'checkbox') {
-          
-          const dataValue = data[key];
-          
-          // 2. data[key] 값을 boolean으로 변환하여 .checked 속성에 할당
-          // (서버에서 "true", "on", true, 1 등을 보낼 수 있으므로 안전하게 확인)
-          (element as HTMLInputElement).checked = 
-              dataValue === true || 
-              dataValue === 'true' || 
-              dataValue === 'on' || 
-              dataValue === 1;
-
-        } else {
-          // 3. 체크박스가 아닌 경우 (text, textarea 등) .value 속성에 할당
-          element.value = data[key] || '';
-        }      }
+        element.value = data[key] || '';
+      }
     });
   }, [data, template]); // 'data' 또는 'template'이 바뀔 때마다 실행
 
