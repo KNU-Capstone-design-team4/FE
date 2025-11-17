@@ -87,7 +87,7 @@ const MyPage: React.FC = () => {
 
   // ✅ 문서 삭제 핸들러
   const handleDeleteDocument = async (e: React.MouseEvent, docId: string) => {
-    e.stopPropagation(); // ⛔ 이미지 클릭 이벤트로 버블링 방지
+    e.stopPropagation(); // 
 
     if (!accessToken) return;
     const confirmDelete = window.confirm("정말 이 문서를 삭제하시겠습니까?");
