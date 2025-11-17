@@ -250,6 +250,8 @@
   width: auto;
   padding: 5px;
   box-sizing: border-box;
+  border: 1px solid gainsboro; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .document-content textarea {
