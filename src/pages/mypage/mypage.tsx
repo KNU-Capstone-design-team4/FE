@@ -86,73 +86,12 @@ const MyPage: React.FC = () => {
   };
 
   return (
-    <div 
-      className="auth-container"
-      style={{
-        height: "calc(100vh - 61px)",
-        backgroundColor: "#F9FAFB",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        //paddingTop: "80px",
-        //paddingBottom: "60px",
-        overflow: "auto",
-        //padding: "80px 0 60px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div className="auth-box"
-        style={{
-          width: "100%",
-          maxWidth: "1200px",
-          textAlign: "center",
-          boxSizing: "border-box",
-          //overflowY: "auto",
-          padding: "80px 0 60px",
-          margin: 0,
-        }}
-      >
-        <h1 className="auth-title"
-          style={{
-            margin: "0",
-            marginBottom: "8px",
-            fontSize: "32px",
-            fontWeight: "700",
-            fontFamily: "'Noto Sans KR', sans-serif",
-            position: "static",
-            backgroundColor: "transparent",
-          }}
-        >
-          마이페이지</h1>
-        <p 
-          className="text-gray-600 mb-6"
-          style={{ 
-            //textAlign: "center", 
-            marginTop: "10px",
-            marginBottom: "40px", 
-            color: "#666",
-            fontSize: "16px",
-            fontWeight: "400",
-          }}
-        >당신의 문서를 관리하고 열람하세요!
-        </p>
-      
-        <div
-          style={{
-            display: "grid",
-           // gridTemplateColumns: "repeat(5, 160px)",
-            gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
-            //flexDirection: "row",
-            gap: "24px",
-            //flexWrap: "wrap",
-            justifyItems: "center",
-            //alignItems: "start",
-            margin: "0 auto",
-            width: "100%",
-            maxWidth: "calc(5 * 160px + 4 *24px)"
-          }}
-        >
+    <div className="auth-container">
+      <div className="auth-box">
+        <h1 className="auth-title">마이페이지</h1>
+        <p className="text-gray-600 mb-6">당신의 문서를 관리하고 열람하세요!</p>
+
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '20px', flexWrap: 'nowrap', justifyContent: 'center' }}>
           {/* 새 문서 버튼 */}
           <div
             onClick={handleCreateNew}

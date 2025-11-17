@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import './DocumentEditor.css';
 
-// 메시지 타입 정의 (부모와 동일)
 interface Message {
   sender: 'user' | 'ai';
   text: string;
 }
 
-// 
-// 👇 1. (수정) 부모로부터 받을 props 타입 정의
-// 
-interface ChatInterfaceProps {
-  messages: Message[];
-  onSendMessage: (text: string) => void;
-  isLoading: boolean; // 👈 이 부분이 추가되었습니다.
-}
-
-const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, isLoading }) => {
-  // 
-  // 👇 2. (수정) messages에 대한 useState는 제거하고, input 상태만 남깁니다.
-  // 
+const ChatInterface: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      sender: 'ai',
+      text: '안녕하세요! LAWBOT입니다. 어떤 도움이 필요하신가요?',
+    },
+  ]);
   const [input, setInput] = useState('');
 
-  const handleSendClick = () => {
-    // 
-    // 👇 3. (수정) 로딩 중이 아닐 때만 부모의 함수를 호출합니다.
-    // 
-    if (input.trim() === '' || isLoading) return;
-    onSendMessage(input); // 부모의 핸들러 호출
-    setInput(''); // 입력창 비우기
+  const handleSendMessage = () => {
+    if (input.trim() === '') return;
+
+    // 사용자 메시지 추가
+    const userMessage: Message = { sender: 'user', text: input };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    setInput('');
+
+    // AI 응답 시뮬레이션 (나중에 실제 AI 로직으로 대체)
+    setTimeout(() => {
+      const aiResponse: Message = {
+        sender: 'ai',
+        text: `"${input}" 항목에 대해 처리중입니다...`,
+      };
+      setMessages((prevMessages) => [...prevMessages, aiResponse]);
+    }, 1000);
   };
 
   return (
@@ -37,8 +39,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
         <h3>AI Chat</h3>
       </div>
       <div className="chat-messages">
-        {/* 👇 4. (수정) props로 받은 messages를 렌더링합니다.
-        */}
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
             <p>{msg.text}</p>
@@ -46,27 +46,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
         ))}
       </div>
       <div className="chat-input-area">
-        <button 
-          className="chat-attach-button" 
-          disabled={isLoading} // 👈 5. (수정) 로딩 중 비활성화
-        >
-          +
-        </button>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSendClick()}
-          placeholder={isLoading ? "AI가 응답을 준비 중입니다..." : "사례를 입력해 주세요. (15자 이상)"}
-          disabled={isLoading} // 👈 6. (수정) 로딩 중 비활성화
+          onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+          placeholder="메시지를 입력하세요..."
         />
-        <button 
-          onClick={handleSendClick} 
-          className="chat-send-button"
-          disabled={isLoading} // 👈 7. (수정) 로딩 중 비활성화
-        >
-          ↑
-        </button>
+        <button onClick={handleSendMessage}>전송</button>
       </div>
     </div>
   );
