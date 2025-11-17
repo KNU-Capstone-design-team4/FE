@@ -1,4 +1,8 @@
-// src/pages/chatbot/DocumentViewer.tsx
+import React from 'react';
+// 사용자가 업로드한 문서 이미지를 import 합니다.
+// 'path/to/your/image.png' 부분은 실제 이미지 경로로 수정해주세요.
+import documentImage from '../../assets/document_image.png';
+import './DocumentEditor.css';
 
 import React, { useEffect, useRef } from 'react';
 import './DocumentEditor.css'; // 스타일은 그대로 사용합니다.
@@ -74,7 +78,11 @@ if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'check
   // ref를 사용하여 div를 생성하고, 템플릿 렌더링과 데이터 바인딩을 수행
   return (
     <div className="document-viewer">
-      <div ref={containerRef} className="document-content" />
+      <img
+        src={documentImage}
+        alt="Standard Labor Contract"
+        className="document-image"
+      />
     </div>
   );
 };

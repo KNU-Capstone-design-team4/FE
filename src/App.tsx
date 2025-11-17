@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Layout from './components/Layout';
-// 👇 Hero와 Features는 MainPage가 렌더링하므로 App.tsx에서는 필요 없습니다.
-// import Hero from './components/Hero'; 
-// import Features from './components/Features';
+import Hero from './components/Hero';
+import Features from './components/Features';
 import DocumentEditorPage from './pages/chatbot/DocumentEditorPage';
 import LoginIntroPage from './pages/login/login_intro';
 import LoginPage from './pages/login/loginpage';
@@ -14,44 +13,22 @@ import LandingPage from './pages/landing/landing';
 import MyPage from "./pages/mypage/mypage";
 import Chatbot from "./pages/chatbot/ChatInterface";
 
-// 
-// 👇 [수정 1] './pages/main/MainPage'에서 MainPage를 import 합니다.
-// 
-import MainPage from './pages/main/MainPage'; 
-
-// 
-// 👇 [수정 2] App.tsx 내부에 있던 인라인 MainPage 정의를 삭제합니다.
-// 
-/* const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
+// MainPage 컴포넌트는 isLoggedIn prop을 받도록 수정합니다.
+const MainPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => (
   <main>
     <Hero />
+    {/* Features 컴포넌트에 isLoggedIn 상태를 넘겨줍니다. */}
     <Features isLoggedIn={isLoggedIn} />
   </main>
 );
-*/
 
 const App: React.FC = () => {
-  // 
-  // 👇 [수정 3] (이전 제안 반영) localStorage에서 로그인 상태를 확인합니다.
-  // 
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return !!localStorage.getItem("accessToken");
-  });
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = () => setIsLoggedIn(true);
-
-  // 
-  // 👇 [수정 4] (이전 제안 반영) 로그아웃 시 localStorage 토큰을 삭제합니다.
-  // 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken"); // 저장된 토큰 삭제
-    setIsLoggedIn(false); // 상태 업데이트
-  };
+  const handleLogout = () => setIsLoggedIn(false);
 
   return (
     <Routes>
-      {/* 👇 [수정 5] Layout에 handleLogout을 전달합니다.
-      */}
       <Route element={<Layout isLoggedIn={isLoggedIn} onLogout={handleLogout} />}>
         {/* MainPage에 isLoggedIn 상태를 prop으로 전달합니다. */} 
         <Route path="/main" element={<MainPage isLoggedIn={isLoggedIn} />} />
@@ -70,5 +47,7 @@ const App: React.FC = () => {
 
   );
 };
+
+
 
 export default App;
