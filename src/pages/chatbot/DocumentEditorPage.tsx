@@ -114,12 +114,20 @@ const handleSendMessage = async (inputText: string) => {
     }
   };
 
-  // 👇 [추가] onBlur 이벤트를 처리할 자동 저장 함수 (이미지 참고)
+  // 👇 [수정] onBlur 이벤트를 처리할 자동 저장 함수 (비교 로직 수정)
   const handleFieldUpdate = async (fieldId: string, value: string) => {
-    // 현재 React state의 값과 동일하면 API 요청을 보내지 않음 (최적화)
-    if (filledData[fieldId] === value) {
-      return;
+    
+    // --- 👇 [수정된 부분] ---
+    // React state에 저장된 현재 값 (null/undefined일 경우 ''로 변환)
+    const currentValue = filledData[fieldId] || '';
+    // input에서 전달받은 새 값 (마찬가지로 ''로 변환)
+    const newValue = value || '';
+
+    // 두 값이 정말 같은지 비교 (예: '' === '' 는 true)
+    if (currentValue === newValue) {
+      return; // 값이 변경되지 않았으므로 API 요청을 보내지 않음
     }
+    // --- 👆 [수정된 부분] ---
 
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -131,7 +139,7 @@ const handleSendMessage = async (inputText: string) => {
     // 이미지에서 설명한 payload 형식
     const payload = {
       content: {
-        [fieldId]: value,
+        [fieldId]: value, // 보낼 때는 '' 또는 null 그대로 보냅니다.
       },
     };
 
