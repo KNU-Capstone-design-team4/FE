@@ -6,7 +6,7 @@ const MyPageLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-full h-auto bg-gray-50 relative">
+    <div className="min-h-screen bg-gray-50 relative">
       <header className="bg-transparent">
         <div className="max-w-7xl mx-auto px-6 py-4"> 
            <img
