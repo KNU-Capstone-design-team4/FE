@@ -24,7 +24,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSendClick = () => {
-    if (input.trim() === '' || isLoading) return;
+    if (isLoading) return;
     onSendMessage(input); // 부모의 핸들러 호출
     setInput(''); // 입력창 비우기
     // (포커스 로직은 아래 useEffect 훅으로 이동)

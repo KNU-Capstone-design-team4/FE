@@ -65,7 +65,7 @@ const MyPage: React.FC = () => {
     try {
       const res = await axios.post(
         `${API}/api/contracts/`,
-        { contract_type: "근로계약서" },
+        { contract_type: "위임장" },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
@@ -73,7 +73,7 @@ const MyPage: React.FC = () => {
         ...prev,
         {
           id: res.data.id,
-          title: "근로계약서",
+          title: "위임장",
           updatedAt: res.data.updated_at || new Date().toISOString(),
         },
       ]);
