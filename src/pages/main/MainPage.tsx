@@ -1,28 +1,36 @@
+// src/pages/main/MainPage.tsx
+
 import React from 'react';
-// 👇 [수정 1] Header는 Layout이 렌더링하므로 여기서 import할 필요 없습니다.
-// import Header from '../../components/Header';
+// import Header from '../../components/Header'; // Layout에서 처리하므로 주석 유지
 import Hero from '../../components/Hero';
 import Features from '../../components/Features';
 
-// 
-// 👇 [수정 2] App.tsx로부터 'isLoggedIn' prop을 받기 위한 인터페이스
-// 
 interface MainPageProps {
   isLoggedIn: boolean;
 }
 
-const MainPage: React.FC<MainPageProps> = ({ isLoggedIn }) => { // 👈 [수정 3] isLoggedIn을 prop으로 받음
+const MainPage: React.FC<MainPageProps> = ({ isLoggedIn }) => {
   return (
     <>
-      {/* 👇 [수정 4] <Header /> 삭제 (Layout.tsx가 이미 렌더링함)
-      */}
       {/* <Header /> */}
       
       <main>
         <Hero />
-        {/* 👇 [수정 5] Features 컴포넌트에 isLoggedIn 상태를 넘겨줍니다.
-        */}
         <Features isLoggedIn={isLoggedIn} />
+        
+        {/* 👇 [추가] 법적 고지 문구 (Features 아래 빈 공간에 추가) */}
+        <div 
+          style={{ 
+            marginTop: '60px', 
+            marginBottom: '40px', 
+            textAlign: 'center', 
+            color: '#9ca3af', // 부드러운 회색 (Tailwind gray-400 느낌)
+            fontSize: '13px',
+            fontWeight: 400
+          }}
+        >
+          * 모든 법률 조언은 전문가의 자문을 바탕으로 제공되나, 최종 판단의 책임은 사용자에게 있습니다.
+        </div>
       </main>
     </>
   );
