@@ -1,5 +1,6 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'; // 👈 1. useLocation을 추가로 불러옵니다.
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaChevronLeft } from "react-icons/fa";
 
 interface HeaderProps {
   isLoggedIn: boolean;
@@ -8,38 +9,60 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
   const navigate = useNavigate();
-  const location = useLocation(); // 👈 2. 현재 위치 정보를 가져옵니다.
+  const location = useLocation();
 
-  // 3. 현재 페이지 경로에 따라 다르게 동작하는 로그아웃 핸들러
+  // 현재 페이지가 메인 페이지인지 확인
+  const isMainPage = location.pathname === '/' || location.pathname === '/main';
+
   const handleLogout = () => {
-    // 현재 경로가 '/chatbot'일 경우
     if (location.pathname === '/chatbot') {
       if (window.confirm('정말 로그아웃 하시겠습니까?')) {
         onLogout();
-        navigate('/login'); // 로그인 페이지로 이동
+        navigate('/login'); 
       }
     } 
-    // 그 외 다른 모든 페이지의 경우
     else {
       if (window.confirm('정말 로그아웃 하시겠습니까?')) {
-      onLogout();
-      navigate('/'); // 메인 페이지로 이동
+        onLogout();
+        navigate('/'); 
       }
     }
   };
 
   return (
-    <header className="flex justify-between items-center p-4 bg-white shadow-md">
-      {/* 왼쪽 상단 로고 */}
-      <div
-        className="flex items-center cursor-pointer"
-        onClick={() => navigate('/')}
-      >
-        <img src="/lawbot_logo.svg" alt="LawBot Logo"
-          style={{ height: '40px', width: 'auto', display: 'block' }} />
+    <header className="relative flex justify-between items-center p-4 bg-white shadow-md">
+      
+      {/* 1. 왼쪽 영역: 뒤로가기 버튼 */}
+      <div className="flex items-center" style={{ minWidth: '40px' }}> 
+        {!isMainPage && (
+          <button 
+            onClick={() => navigate(-1)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            title="뒤로가기"
+            style={{ 
+              border: 'none', 
+              background: 'transparent',
+              transform: 'translate(-25px, 3px)' 
+            }}
+          >
+            <FaChevronLeft size={20} color="#333" />
+          </button>
+        )}
       </div>
 
-      {/* 오른쪽 메뉴 */}
+      {/* 2. 중앙 영역: 로고 (absolute로 화면 정중앙 고정) */}
+      <div
+        className="absolute left-1/2 transform -translate-x-1/2 flex items-center cursor-pointer"
+        onClick={() => navigate('/')}
+      >
+        <img 
+          src="/lawbot_logo.svg" 
+          alt="LawBot Logo"
+          style={{ height: '40px', width: 'auto', display: 'block' }} 
+        />
+      </div>
+
+      {/* 3. 오른쪽 영역: 메뉴 버튼 */}
       <nav className="flex gap-2">
         {isLoggedIn ? (
           <>
@@ -49,7 +72,6 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, onLogout }) => {
             >
               마이페이지
             </button>
-            {/* 👇 로그아웃 버튼의 onClick에 새로 만든 함수를 연결합니다. */}
             <button
               onClick={handleLogout}
               className="btn-logout px-4 py-2 bg-gray-300 rounded"
