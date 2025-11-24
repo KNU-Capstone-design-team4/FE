@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ResizedImage from "./resize";
 import axios from "axios";
@@ -18,6 +18,10 @@ const MyPage: React.FC = () => {
   const [accessToken, setAccessToken] = useState<string | null>(
     localStorage.getItem("accessToken")
   );
+
+  // 👇 [추가] 드롭다운 메뉴 상태 및 Ref
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleOpenDocument = (docId: string) => {
     navigate(`/ChatInterface/${docId}`);
@@ -59,13 +63,28 @@ const MyPage: React.FC = () => {
     if (accessToken) fetchContracts();
   }, [accessToken]);
 
-  const handleCreateNew = async () => {
+  // 👇 [추가] 외부 클릭 시 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // 👇 [수정] 문서 선택 및 생성 핸들러
+  const handleSelectDocument = async (docType: string) => {
     if (!accessToken) return;
+    setShowDropdown(false); // 메뉴 닫기
 
     try {
       const res = await axios.post(
         `${API}/api/contracts/`,
-        { contract_type: "위임장" },
+        { contract_type: docType },
         { headers: { Authorization: `Bearer ${accessToken}` } }
       );
 
@@ -73,7 +92,7 @@ const MyPage: React.FC = () => {
         ...prev,
         {
           id: res.data.id,
-          title: "위임장",
+          title: docType,
           updatedAt: res.data.updated_at || new Date().toISOString(),
         },
       ]);
@@ -82,11 +101,10 @@ const MyPage: React.FC = () => {
       navigate(`/ChatInterface/${res.data.id}`);
     } catch (err) {
       console.error("문서 생성 실패", err);
+      alert("문서 생성 중 오류가 발생했습니다.");
     }
   };
 
-
-  
   // ✅ 문서 삭제 핸들러
   const handleDeleteDocument = async (e: React.MouseEvent, docId: string) => {
     e.stopPropagation(); 
@@ -117,10 +135,7 @@ const MyPage: React.FC = () => {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        //paddingTop: "80px",
-        //paddingBottom: "60px",
         overflow: "auto",
-        //padding: "80px 0 60px",
         boxSizing: "border-box",
       }}
     >
@@ -130,7 +145,6 @@ const MyPage: React.FC = () => {
           maxWidth: "1200px",
           textAlign: "center",
           boxSizing: "border-box",
-          //overflowY: "auto",
           padding: "80px 0 60px",
           margin: 0,
         }}
@@ -150,7 +164,6 @@ const MyPage: React.FC = () => {
         <p 
           className="text-gray-600 mb-6"
           style={{ 
-            //textAlign: "center", 
             marginTop: "10px",
             marginBottom: "40px", 
             color: "#666",
@@ -163,38 +176,80 @@ const MyPage: React.FC = () => {
         <div
           style={{
             display: "grid",
-           // gridTemplateColumns: "repeat(5, 160px)",
             gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
-            //flexDirection: "row",
             gap: "24px",
-            //flexWrap: "wrap",
             justifyItems: "center",
-            //alignItems: "start",
             margin: "0 auto",
             width: "100%",
             maxWidth: "calc(5 * 160px + 4 *24px)"
           }}
         >
-          {/* 새 문서 버튼 */}
+          {/* 👇 [수정] 새 문서 버튼 및 드롭다운 */}
           <div
-            onClick={handleCreateNew}
-            style={{
-              width: "160px",
-              height: "260px",
-              backgroundColor: "#000",
-              color: "#fff",
-              fontSize: "48px",
-              fontWeight: "700",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              borderRadius: "8px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-              //textAlign: "center",
-            }}
+            ref={dropdownRef}
+            style={{ position: "relative", width: "160px", height: "260px" }}
           >
-            +
+            <div
+              onClick={() => setShowDropdown(!showDropdown)}
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#000",
+                color: "#fff",
+                fontSize: "48px",
+                fontWeight: "700",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              +
+            </div>
+
+            {/* 드롭다운 메뉴 */}
+            {showDropdown && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "0",
+                  marginTop: "8px",
+                  width: "100%",
+                  backgroundColor: "#fff",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                  zIndex: 50,
+                  overflow: "hidden",
+                  border: "1px solid #eee",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {["근로계약서", "통합신청서", "위임장"].map((type) => (
+                  <div
+                    key={type}
+                    onClick={() => handleSelectDocument(type)}
+                    style={{
+                      padding: "12px",
+                      fontSize: "14px",
+                      color: "#333",
+                      cursor: "pointer",
+                      borderBottom: "1px solid #f0f0f0",
+                      textAlign: "center",
+                      fontWeight: "500",
+                      transition: "background-color 0.2s",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f9fafb")}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "white")}
+                  >
+                    {type}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* 기존 문서 목록 */}
@@ -208,13 +263,13 @@ const MyPage: React.FC = () => {
                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                 textAlign: "center",
                 cursor: "pointer",
-                position: "relative", // ✅ 휴지통 위치 조정용
+                position: "relative", 
               }}
               onClick={() => handleOpenDocument(doc.id.toString())}
             >
               <ResizedImage width={160} height={160} alt={doc.title} />
 
-              {/* ✅ 휴지통 아이콘 (삭제 버튼) */}
+              {/* 휴지통 아이콘 */}
               <FaTrash
                 onClick={(e) => handleDeleteDocument(e, doc.id.toString())}
                 style={{
@@ -222,11 +277,6 @@ const MyPage: React.FC = () => {
                   bottom: "8px",
                   right: "8px",
                   color: "#aaa",
-                  //color: "red",
-                  //fontSize: "20px",
-                  //backgroundColor: "white",
-                  //borderRadius: "50%",
-                  //padding: "4px",
                   zIndex: 10,
                   cursor: "pointer",
                   fontSize: "16px",
