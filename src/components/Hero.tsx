@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
             <div style={{ textAlign: 'left', marginBottom: '20px', fontSize: '16px', color: '#555' }}>
               <p style={{ marginBottom: '10px' }}>
                 <strong>👩‍💻 남규리 (Nam Gyuri)</strong><br/>
-                Email: <a href="mailto:judynam03@gmail.com" style={{ color: '#007bff' }}>judy030407@naver.com</a>
+                Email: <a href="mailto:judynam03@gmail.com" style={{ color: '#007bff' }}>judynam03@gmail.com</a>
               </p>
               <p style={{ marginBottom: '10px' }}>
                 <strong>👩‍💻 전민영 (Jeon Minyoung)</strong><br/>
