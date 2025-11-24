@@ -1,38 +1,64 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom"
+import axios from "axios";
+
+const API = import.meta.env.VITE_API_URL;
 
 interface CardProps {
   title: string;
   description: string;
-  to: string;
-  isLoggedIn: boolean; // 로그인 상태를 prop으로 받습니다.
+  onClickType: string;
+  isLoggedIn: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ title, description, to, isLoggedIn }) => {
+const Card: React.FC<CardProps> = ({ title, description, onClickType, isLoggedIn }) => {
+  console.log("Card props:", { title, description, onClickType, isLoggedIn }); // 디버깅용
   const navigate = useNavigate();
 
-  // 클릭 이벤트 핸들러 함수
-  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // 챗봇으로 이동하는 링크일 경우에만 검사
-    if (to === '/chatbot') {
-      // 로그인하지 않은 상태라면
-      if (!isLoggedIn) {
-        e.preventDefault(); // 기본 링크 이동을 막습니다.
-        alert('로그인이 필요한 서비스입니다.'); // 알림창을 띄웁니다.
-        navigate('/login'); // 로그인 페이지로 이동시킵니다.
-      }
+  const handleClick = async () => {
+    // 로그인 안했으면 로그인 페이지로 이동
+    if (!isLoggedIn) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
+      return;
     }
-    // 로그인 상태이거나 다른 링크일 경우, Link의 기본 동작(to 경로로 이동)을 따릅니다.
+
+    const accessToken = localStorage.getItem("accessToken");
+     //console.log("Sending contract_type:", onClickType, "token:", accessToken); 
+    if (!accessToken) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      // 토큰 가져오기
+      const accessToken = localStorage.getItem("accessToken");
+
+      // 문서 생성 요청
+      const res = await axios.post(
+        `${API}/api/contracts`,
+        { contract_type: onClickType },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      // contractId 받아서 채팅 인터페이스로 이동
+      navigate(`/ChatInterface/${res.data.id}`);
+    } catch (err) {
+      console.error("문서 생성 실패:", err);
+      alert("문서 생성 중 오류가 발생했습니다.");
+    }
   };
 
   return (
-    <div className="card">
+    <div className="card" onClick={handleClick} style={{ cursor: "pointer" }}>
       <h2>{title}</h2>
       <p>{description}</p>
-      {/* a 태그 대신 Link를 사용하고, onClick 이벤트를 연결합니다. */}
-      <Link to={to} onClick={handleNavigate}>
-        바로가기
-      </Link>
+      <span className="card-link">바로가기 →</span>
     </div>
   );
 };
