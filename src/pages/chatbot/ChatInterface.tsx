@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'; // 👈 1. useEffect와 useRef를 import
+import { FaFileWord } from "react-icons/fa"; // 👈 [추가] 아이콘 사용 (react-icons가 설치되어 있다고 가정)
 import './DocumentEditor.css';
 
 // 메시지 타입 정의 (부모와 동일)
@@ -12,9 +13,10 @@ interface ChatInterfaceProps {
   messages: Message[];
   onSendMessage: (text: string) => void;
   isLoading: boolean;
+  onExport: () => void;
 }
 
-const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, isLoading }) => {
+const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, isLoading, onExport }) => {
   const [input, setInput] = useState('');
   
   // 👇 2. 스크롤할 메시지 컨테이너와 포커스할 입력창을 위한 ref 생성
@@ -49,6 +51,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ messages, onSendMessage, 
     <div className="chat-interface">
       <div className="chat-header">
         <h3>AI Chat</h3>
+        <button 
+          className="export-button" 
+          onClick={onExport} 
+          title="Word 문서로 저장"
+        >
+          <FaFileWord style={{ marginRight: '5px' }} />
+          저장
+        </button>
       </div>
       {/* 👇 5. chat-messages div에 messagesContainerRef 연결 */}
       <div className="chat-messages" ref={messagesContainerRef}>
