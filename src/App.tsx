@@ -13,6 +13,7 @@ import RegisterPage from './pages/register/RegisterPage';
 import LandingPage from './pages/landing/landing';
 import MyPage from "./pages/mypage/mypage";
 import Chatbot from "./pages/chatbot/ChatInterface";
+import NewDocumentPage from "./pages/chatbot/NewDocumentPage";
 
 // 
 // 👇 [수정 1] './pages/main/MainPage'에서 MainPage를 import 합니다.
@@ -58,7 +59,7 @@ const App: React.FC = () => {
         <Route path="/chatbot" element={<DocumentEditorPage />} />
         <Route path="/mypage" element = {<MyPage />} />
         <Route path="/DocumentEditorPage" element={<Chatbot />} />
-        <Route path="/ChatInterface" element={<DocumentEditorPage />} />
+        <Route path="/ChatInterface" element={<NewDocumentPage />} />
         <Route path="/ChatInterface/:contractId" element={<DocumentEditorPage />} />
       </Route>
       <Route path="/" element={<LandingPage isLoggedIn={isLoggedIn} />} />
