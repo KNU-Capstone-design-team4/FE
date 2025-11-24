@@ -4,6 +4,7 @@ import DocumentViewer from './DocumentViewer';
 import ChatInterface from './ChatInterface';
 import './DocumentEditor.css';
 import apiClient from '../../api/api';
+import { saveAs } from 'file-saver';
 
 // (Message, FilledData 인터페이스는 동일)
 interface Message {
@@ -168,7 +169,34 @@ const handleSendMessage = async (inputText: string) => {
       console.error("Auto-save failed:", error);
     }
   };
+// 👇 수정된 Docx 내보내기 핸들러
+// 👇 스타일 충돌 및 여백 문제를 해결한 최종 내보내기 함수
+// 👇 백엔드 API를 이용한 다운로드 함수 (가장 확실한 방법)
+  const handleExportDocx = async () => {
+    if (!contractId) {
+      alert("문서 ID를 찾을 수 없습니다.");
+      return;
+    }
 
+    try {
+      // 1. 백엔드에 다운로드 요청 (responseType: 'blob' 필수)
+      const response = await apiClient.get(`/api/contracts/${contractId}/download`, {
+        responseType: 'blob', // 중요: 파일 데이터를 바이너리로 받음
+      });
+
+      // 2. 응답받은 데이터로 파일 저장 (file-saver 사용)
+      // 파일명은 서버 헤더에서 가져오거나, 임의로 지정 가능
+      const blob = new Blob([response.data], { 
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+      });
+      
+      saveAs(blob, `contract_${contractId}.docx`);
+
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert("문서 다운로드에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    }
+  };
 
   if (isPageLoading) {
     return <div className="editor-container">페이지 로딩 중...</div>;
@@ -186,6 +214,7 @@ const handleSendMessage = async (inputText: string) => {
         messages={messages}
         onSendMessage={handleSendMessage}
         isLoading={isLoading} 
+        onExport={handleExportDocx} // 👈 [추가] 내보내기 함수 전달
       />
     </div>
   );

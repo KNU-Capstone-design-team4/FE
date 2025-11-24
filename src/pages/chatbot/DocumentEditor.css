@@ -64,15 +64,37 @@
 /* 채팅 헤더 (테마 수정) */
 .chat-header {
   padding: 15px 20px;
-  background-color: #ffffff; /* 어두운 배경 -> 흰색 배경 */
-  border-bottom: 1px solid #e0e0e0; /* 구분선 */
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  
+  /* 👇 [추가] Flexbox를 사용하여 제목과 버튼을 양옆으로 배치 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .chat-header h3 {
   margin: 0;
   font-size: 18px;
   color: #333; /* 글자색 */
 }
+/* 👇 [추가] 내보내기 버튼 스타일 */
+.export-button {
+  background-color: #f0f2f5;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
 
+.export-button:hover {
+  background-color: #e4e6eb;
+}
 /* 채팅 메시지 영역 */
 .chat-messages {
   flex-grow: 1;
