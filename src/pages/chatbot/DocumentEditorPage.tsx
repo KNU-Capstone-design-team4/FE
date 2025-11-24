@@ -4,7 +4,7 @@ import DocumentViewer from './DocumentViewer';
 import ChatInterface from './ChatInterface';
 import './DocumentEditor.css';
 import apiClient from '../../api/api';
-import { saveAs } from 'file-saver';
+//import { saveAs } from 'file-saver';
 
 // (Message, FilledData 인터페이스는 동일)
 interface Message {
