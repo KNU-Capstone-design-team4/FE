@@ -31,6 +31,12 @@ const Features: React.FC<FeaturesProps> = ({ isLoggedIn }) => {
         isLoggedIn={isLoggedIn} 
       
       />
+      <Card
+        title="임대차계약서"
+        description="주택이나 상가 임대차 계약을 쉽게 작성할 수 있습니다. 임대인/임차인 정보와 계약 조건만 입력하면 바로 사용 가능한 계약서를 생성합니다."
+        onClickType="임대차계약서"
+        isLoggedIn={isLoggedIn} 
+      />
     </section>
   );
 };
