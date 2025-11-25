@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LandingImage from "./LandingPage.svg";
+import LandingImage from "./landing2.svg";
 
 const LandingPage: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
   const navigate = useNavigate();
