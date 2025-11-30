@@ -228,7 +228,7 @@ const MyPage: React.FC = () => {
                   flexDirection: "column",
                 }}
               >
-                {["근로계약서", "통합신청서", "위임장"].map((type) => (
+                {["근로계약서", "통합신청서", "위임장", "임대차계약서"].map((type) => (
                   <div
                     key={type}
                     onClick={() => handleSelectDocument(type)}
