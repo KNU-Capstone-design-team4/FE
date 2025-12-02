@@ -72,7 +72,7 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({
         if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'checkbox') {
           const dataValue = data[key];
           (element as HTMLInputElement).checked = 
-              dataValue === true || 
+              //dataValue === true || 
               dataValue === 'true' || 
               dataValue === 'on' || 
               (dataValue as any) === 1;
