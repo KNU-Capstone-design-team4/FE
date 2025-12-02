@@ -72,10 +72,11 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({
         if (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'checkbox') {
           const dataValue = data[key];
           (element as HTMLInputElement).checked = 
-              //dataValue === true || 
-              dataValue === 'true' || 
-              dataValue === 'on' || 
-              (dataValue as any) === 1;
+              (dataValue as any) === true ||   // boolean 체크 (빌드 오류 해결됨)
+              dataValue === 'true' ||          // string "true"
+              dataValue === 'on' ||            // string "on"
+              (dataValue as any) === 1 ||      // number 1 (혹시 모를 숫자 타입 대비)
+              dataValue === '1';               // string "1"
         } else {
           // [유지] onBlur 충돌 방지 로직
           if (document.activeElement !== element) {
