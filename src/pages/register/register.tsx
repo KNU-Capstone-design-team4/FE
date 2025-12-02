@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import lawbotLogo from '../../src/assets/lawbot_logo.svg';
 

@@ -8,7 +8,7 @@ interface RegisterPageProps {
   onRegisterSuccess: () => void;
 }
 
-const RegisterPage: React.FC<RegisterPageProps> = ({ onRegisterSuccess }) => {
+const RegisterPage: React.FC<RegisterPageProps> = ({ }) => {
   const navigate = useNavigate();
 
   // 1. 각 입력 필드의 값을 관리하는 state

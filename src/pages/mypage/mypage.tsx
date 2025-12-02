@@ -15,7 +15,7 @@ interface Document {
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [accessToken, setAccessToken] = useState<string | null>(
+  const [accessToken] = useState<string | null>(
     localStorage.getItem("accessToken")
   );
 

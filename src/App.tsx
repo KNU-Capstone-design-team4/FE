@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Layout from './components/Layout';
@@ -58,7 +58,11 @@ const App: React.FC = () => {
         <Route path="/main" element={<MainPage isLoggedIn={isLoggedIn} />} />
         <Route path="/chatbot" element={<DocumentEditorPage />} />
         <Route path="/mypage" element = {<MyPage />} />
-        <Route path="/DocumentEditorPage" element={<Chatbot />} />
+        <Route path="/DocumentEditorPage" element={<Chatbot messages={[]} onSendMessage={function (): void {
+          throw new Error('Function not implemented.');
+        } } isLoading={false} onExport={function (): void {
+          throw new Error('Function not implemented.');
+        } } />} />
         <Route path="/ChatInterface" element={<NewDocumentPage />} />
         <Route path="/ChatInterface/:contractId" element={<DocumentEditorPage />} />
       </Route>
