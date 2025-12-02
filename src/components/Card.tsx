@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({ title, description, onClickType, isLoggedIn
   return (
     <div
       className="card"
-      style={{ position: "relative", padding: "16px", cursor: "pointer" }}
+      style={{ position: "relative", padding: "30px", cursor: "pointer" }}
       onClick={handleClick}
     >
       <h2>{title}</h2>
